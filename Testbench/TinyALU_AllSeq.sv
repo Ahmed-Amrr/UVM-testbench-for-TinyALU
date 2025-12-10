@@ -25,18 +25,11 @@ package tinyalu_allseq;
 		endfunction : new
 
 		task body();
-			int clock_cycles = 0;
-
 			for (int i = 0; i < 1000; i++) begin
-				if (clock_cycles == 0) begin
-					item = tinyalu_seqitem::type_id::create("item");
-					start_item(item);
-					assert(item.randomize());
-					finish_item(item);
-					clock_cycles = item.cycle - 1;
-				end	else begin
-					clock_cycles--;
-				end
+				item = tinyalu_seqitem::type_id::create("item");
+				start_item(item);
+				assert(item.randomize());
+				finish_item(item);
 			end
 		endtask : body
 	endclass : tinyalu_allseq
