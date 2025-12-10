@@ -26,18 +26,17 @@ package ALU_coverage_pkg;
 		 		bins disabled {0};
 		 		bins abled {1};
 		 	}
-		 	A_c : coverpoint seq_item_cov.A iff(!reset_n){
+		 	A_c : coverpoint seq_item_cov.A iff(!reset_n&&start){
 		 		bins Max {8{1'b1}};
 		 		bins Min {8{1'b0}};
 		 		bins others = default;
 		 	}
-		 	B_c : coverpoint seq_item_cov.B iff(!reset_n){
+		 	B_c : coverpoint seq_item_cov.B iff(!reset_n&&start){
 		 		bins Max {8{1'b1}};
 		 		bins Min {8{1'b0}};
 		 		bins others = default;
 		 	}
-		 	op_c : coverpoint seq_item_cov.op iff(!reset_n)
-		 	{
+		 	op_c : coverpoint seq_item_cov.op iff(!reset_n&&start){
 		 		bins no_op {3'b000};
 		 		bins add_op {3'b001};
 		 		bins and_op {3'b010};
@@ -45,7 +44,7 @@ package ALU_coverage_pkg;
 		 		bins mul_op {3'b100};
 		 		bins unused_op {[3'b100:3'b111]};
 		 	}
-		 	A_B_op_c : cross A_c, B_c, op_c iff(!reset_n){
+		 	A_B_op_c : cross A_c, B_c, op_c iff(!reset_n&&start){
 		 		ignore_bins no_operation = binsof(op_c.no_op);
 		 		ignore_bins unused_operation = binsof(op_c.unused_op);
 		 		ignore_bins A_default = binsof(A_c.others);
