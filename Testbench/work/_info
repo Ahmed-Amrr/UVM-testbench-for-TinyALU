@@ -8,3 +8,78 @@ z2
 !i10f 100
 cModel Technology
 dC:/questasim64_2021.1/examples
+vsingle_cycle
+Z0 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+Z1 !s110 1765483116
+!i10b 1
+!s100 GbUX@T:34W;`;QP4F6cm>2
+Iab2l3`i>hc@g<Y;Z7Yh192
+S1
+Z2 dD:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench
+Z3 w1764959027
+Z4 8tinyalu.sv
+Z5 Ftinyalu.sv
+!i122 2
+L0 30 26
+Z6 VDg1SIo80bB@j0V0VzS_@n1
+Z7 OL;L;2021.1;73
+r1
+!s85 0
+31
+Z8 !s108 1765483116.000000
+!s107 tinyalu_top.sv|tinyalu_sva.sv|tinyalu_test_err.sv|tinyalu_test_base.sv|tinyalu_err_seq.sv|tinyalu_reset_seq.sv|tinyalu_main_seq.sv|tinyalu_env.sv|tinyalu_coverage.sv|tinyalu_scoreboard.sv|tinyalu_agent.sv|tinyalu_sequencer.sv|tinyalu_monitor.sv|tinyalu_driver.sv|tinyalu_config.sv|tinyalu_err_seq_item.sv|tinyalu_seq_item.sv|tinyalu_if.sv|tinyalu.sv|
+Z9 !s90 -reportprogress|300|-f|src_files.list|+cover|-covercells|
+!i113 0
+Z10 !s102 +cover -covercells
+Z11 o+cover -covercells -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z12 tCvgOpt 0
+vthree_cycle
+R0
+R1
+!i10b 1
+!s100 JXg04FPB59F:TTBON0lcC3
+IS<63[0]UJZI1<ginXI1;41
+S1
+R2
+R3
+R4
+R5
+!i122 2
+L0 58 36
+R6
+R7
+r1
+!s85 0
+31
+R8
+Z13 !s107 tinyalu_top.sv|tinyalu_sva.sv|tinyalu_test_err.sv|tinyalu_test_base.sv|tinyalu_err_seq.sv|tinyalu_reset_seq.sv|tinyalu_main_seq.sv|tinyalu_env.sv|tinyalu_coverage.sv|tinyalu_scoreboard.sv|tinyalu_agent.sv|tinyalu_sequencer.sv|tinyalu_monitor.sv|tinyalu_driver.sv|tinyalu_config.sv|tinyalu_err_seq_item.sv|tinyalu_seq_item.sv|tinyalu_if.sv|tinyalu.sv|
+R9
+!i113 0
+R10
+R11
+R12
+vtinyalu
+R0
+R1
+!i10b 1
+!s100 KohGoQV20og`[COPYLHEl3
+I?ZC82gF5gG=h`Q4MTP5UP3
+S1
+R2
+R3
+R4
+R5
+!i122 2
+L0 1 27
+R6
+R7
+r1
+!s85 0
+31
+R8
+R13
+R9
+!i113 0
+R10
+R11
+R12
