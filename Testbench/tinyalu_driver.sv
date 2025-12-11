@@ -28,7 +28,7 @@ class tinyalu_driver extends uvm_driver;
         s_item = tinyalu_seq_item::type_id::create("s_item", this);
         forever begin
             seq_item_port.get_next_item(s_item);
-            @(cb);
+            @(tinyalu_vif.cb);
             tinyalu_vif.A       = s_item.A;
             tinyalu_vif.B       = s_item.B;
             tinyalu_vif.op      = s_item.op;
