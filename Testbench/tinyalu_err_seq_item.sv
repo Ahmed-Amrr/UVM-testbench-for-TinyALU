@@ -13,7 +13,7 @@ class tinyalu_err_seq_item extends tinyalu_seq_item;
 	}
 
 	constraint c_strat {
-		strat == 1;
+		start == 1;
 	}
 
 	constraint c_operands_stable_err {
