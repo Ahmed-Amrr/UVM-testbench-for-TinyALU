@@ -12,6 +12,7 @@ package tinyalur_pkg;
   `include "tinyalu_reset_seq.sv"
   `include "tinyalu_sequencer"
   `include "tinyalu_driver.sv"
+  `include "tinyalu_err_driver.sv"
   `include "tinyalu_monitor.sv"
   `include "tinyalu_scoreboard.sv"
   `include "tinyalu_agent.sv"

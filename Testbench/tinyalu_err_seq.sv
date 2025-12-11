@@ -11,7 +11,7 @@ class tinyalu_err_sequence extends tinyalu_main_seq;
     endfunction //new()
 
     virtual task body();
-        e_item = tinyalu_err_seq_item::type_id::create("e_item")
+        e_item = tinyalu_err_seq_item::type_id::create("e_item");
         for (int i = 0; i < 100; i++) begin
             start_item(e_item);
             assert(e_item.randomize());
