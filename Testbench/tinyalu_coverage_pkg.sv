@@ -1,21 +1,21 @@
-package ALU_coverage_pkg;
+package tinyalu_coverage_pkg;
 	import uvm_pkg::*;
 	`include "uvm_macros.svh"
-	import ALU_sequence_item_pkg::*;/////////////////////////////////////
+	import tinyalu_sequence_item_pkg::*;/////////////////////////////////////
 
-	class ALU_coverage extends  /* base class*/;
+	class tinyalu_coverage extends  /* base class*/;
 	/*-------------------------------------------------------------------------------
 	-- UVM Factory register
 	-------------------------------------------------------------------------------*/
 		// Provide implementations of virtual methods such as get_type_name and create
-		`uvm_component_utils(ALU_coverage)
+		`uvm_component_utils(tinyalu_coverage)
 
 	/*-------------------------------------------------------------------------------
 	-- Interface, port, fields
 	-------------------------------------------------------------------------------*/
-		uvm_analysis_export #(ALU_seq_item) cov_export;		//check seq_item name
-		uvm_tlm_analysis_fifo #(ALU_seq_item) cov_fifo;
-		ALU_seq_item seq_item_cov;
+		uvm_analysis_export #(tinyalu_seq_item) cov_export;		//check seq_item name
+		uvm_tlm_analysis_fifo #(tinyalu_seq_item) cov_fifo;
+		tinyalu_seq_item seq_item_cov;
 
 		covergroup CovGp ();
 		 	reset_c : coverpoint seq_item_cov.reset_n{
@@ -57,7 +57,7 @@ package ALU_coverage_pkg;
 	-- Functions
 	-------------------------------------------------------------------------------*/
 		// Constructor
-		function new(string name = "ALU_coverage", uvm_component parent=null);
+		function new(string name = "tinyalu_coverage", uvm_component parent=null);
 			super.new(name, parent);
 			CovGp=new();
 		endfunction : new
@@ -81,5 +81,5 @@ package ALU_coverage_pkg;
 			end
 		endtask : run_phase
 	
-	endclass : ALU_coverage
-endpackage : ALU_coverage_pkg
+	endclass : tinyalu_coverage
+endpackage : tinyalu_coverage_pkg
