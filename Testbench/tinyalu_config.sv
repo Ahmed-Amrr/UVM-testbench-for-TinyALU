@@ -1,11 +1,9 @@
-package tinyalu_config_pkg;
-    class tinyalu_config extends uvm_object;
-        `uvm_object_utils (tinyalu_config)
+class tinyalu_config extends uvm_object;
+    `uvm_object_utils (tinyalu_config)
 
-         virtual tinyalu_if tinyalu_vif;
-         
-         function new (string name ="tinyalu_config");
-          super.new(name);
-         endfunction
-    endclass
-endpackage
+     virtual tinyalu_if tinyalu_vif;
+     
+     function new (string name ="tinyalu_config");
+      super.new(name);
+     endfunction
+endclass

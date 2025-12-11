@@ -1,4 +1,4 @@
-package tinyalur_pkg;
+package tinyalu_pkg;
   // Import UVM
   import uvm_pkg::*;
   `include "uvm_macros.svh"

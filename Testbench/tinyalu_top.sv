@@ -1,4 +1,4 @@
-import tinyalur_pkg::*;
+import tinyalu_pkg::*;
 
 module tinyalu_top ();
 	bit clk;

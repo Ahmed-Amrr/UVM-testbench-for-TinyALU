@@ -1,4 +1,5 @@
 tinyalu.sv
+tinyalu_pkg.sv
 tinyalu_if.sv
 tinyalu_seq_item.sv
 tinyalu_err_seq_item.sv
