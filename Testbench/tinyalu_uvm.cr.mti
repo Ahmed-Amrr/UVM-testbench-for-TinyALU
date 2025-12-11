@@ -83,19 +83,7 @@ QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
 ** Error: (vlog-13069) D:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench/tinyalu_err_seq.sv(4): near "tinyalu_main_seq": syntax error, unexpected IDENTIFIER.
 ** Error: D:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench/tinyalu_err_seq.sv(4): Error in class extension specification.
 
-} {3.0 5.0} {}} D:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench/tinyalu_test_base.sv {0 {vlog -work work -vopt -sv -stats=none D:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench/tinyalu_test_base.sv
-QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
-** Error: (vlog-13069) D:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench/tinyalu_test_base.sv(4): near "uvm_test": syntax error, unexpected IDENTIFIER.
-** Error: D:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench/tinyalu_test_base.sv(4): Error in class extension specification.
-
-} {3.0 5.0} {}} D:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench/tinyalu_sva.sv {1 {vlog -work work -vopt -sv -stats=none D:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench/tinyalu_sva.sv
-QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
--- Compiling module tinyalu_sva
-
-Top level modules:
-	tinyalu_sva
-
-} {} {}} D:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench/tinyalu_pkg.sv {1 {vlog -work work -vopt -sv -stats=none D:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench/tinyalu_pkg.sv
+} {3.0 5.0} {}} D:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench/tinyalu_pkg.sv {1 {vlog -work work -vopt -sv -stats=none D:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench/tinyalu_pkg.sv
 QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
 -- Compiling package tinyalu_pkg
 -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
@@ -104,19 +92,31 @@ QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
 Top level modules:
 	--none--
 
-} {} {}} D:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench/tinyalu_sequencer.sv {0 {vlog -work work -vopt -sv -stats=none D:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench/tinyalu_sequencer.sv
+} {} {}} D:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench/tinyalu_sva.sv {1 {vlog -work work -vopt -sv -stats=none D:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench/tinyalu_sva.sv
+QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
+-- Compiling module tinyalu_sva
+
+Top level modules:
+	tinyalu_sva
+
+} {} {}} D:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench/tinyalu_test_base.sv {0 {vlog -work work -vopt -sv -stats=none D:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench/tinyalu_test_base.sv
+QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
+** Error: (vlog-13069) D:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench/tinyalu_test_base.sv(4): near "uvm_test": syntax error, unexpected IDENTIFIER.
+** Error: D:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench/tinyalu_test_base.sv(4): Error in class extension specification.
+
+} {3.0 5.0} {}} D:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench/tinyalu_sequencer.sv {0 {vlog -work work -vopt -sv -stats=none D:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench/tinyalu_sequencer.sv
 QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
 ** Error: (vlog-13069) D:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench/tinyalu_sequencer.sv(4): near "uvm_sequencer": syntax error, unexpected IDENTIFIER.
 ** Error: D:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench/tinyalu_sequencer.sv(4): Error in class extension specification.
-
-} {3.0 5.0} {}} D:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench/tinyalu_coverage.sv {0 {vlog -work work -vopt -sv -stats=none D:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench/tinyalu_coverage.sv
-QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
-** Error: (vlog-13069) D:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench/tinyalu_coverage.sv(4): near "uvm_component": syntax error, unexpected IDENTIFIER.
-** Error: D:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench/tinyalu_coverage.sv(4): Error in class extension specification.
 
 } {3.0 5.0} {}} D:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench/tinyalu_driver.sv {0 {vlog -work work -vopt -sv -stats=none D:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench/tinyalu_driver.sv
 QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
 ** Error: (vlog-13069) D:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench/tinyalu_driver.sv(4): near "uvm_driver": syntax error, unexpected IDENTIFIER.
 ** Error: D:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench/tinyalu_driver.sv(4): Error in class extension specification.
+
+} {3.0 5.0} {}} D:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench/tinyalu_coverage.sv {0 {vlog -work work -vopt -sv -stats=none D:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench/tinyalu_coverage.sv
+QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
+** Error: (vlog-13069) D:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench/tinyalu_coverage.sv(4): near "uvm_component": syntax error, unexpected IDENTIFIER.
+** Error: D:/college/GP/Mini-Project/UVM-testbench-for-TinyALU/Testbench/tinyalu_coverage.sv(4): Error in class extension specification.
 
 } {3.0 5.0} {}}

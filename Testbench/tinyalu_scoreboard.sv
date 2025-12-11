@@ -7,11 +7,12 @@ class tinyalu_scoreboard extends uvm_scoreboard;
     `uvm_component_utils(tinyalu_scoreboard)
 
     // create a TLM Analysis Port to receive data objects
-    uvm_analysis_imp #(tinyalu_seq_item, tinyalu_scoreboard) sb_imp;
+    uvm_analysis_export #(tinyalu_seq_item) sb_imp;
     uvm_tlm_analysis_fifo #(tinyalu_seq_item) sb_fifo;
     tinyalu_seq_item seq_item_sb;
 
     logic [15:0] result_exp;
+    logic done_exp;
 
     // create error and correct counters
     int error_count = 0;
@@ -36,7 +37,7 @@ class tinyalu_scoreboard extends uvm_scoreboard;
         forever begin
             sb_fifo.get(seq_item_sb);
             ref_model(seq_item_sb);
-            if (result_exp == seq_item_sb.result) begin
+            if (result_exp == seq_item_sb.result && done_exp == seq_item_sb.done) begin
                 correct_count++;
             end
             else begin
@@ -53,23 +54,23 @@ class tinyalu_scoreboard extends uvm_scoreboard;
         end
         else if(seq_item_ref.start && ~seq_item_ref.op[2])begin
             cycle = 0;
-            seq_item_ref.done = 1;
+            done_exp = 1;
             case (seq_item_ref.op)
                 3'b001: result_exp = seq_item_ref.A + seq_item_ref.B;
                 3'b010: result_exp = seq_item_ref.A & seq_item_ref.B;
                 3'b011: result_exp = seq_item_ref.A ^ seq_item_ref.B;
-                default: seq_item_ref.done = 0;
+                default: done_exp = 0;
             endcase
         end
         else if(seq_item_ref.start && seq_item_ref.op == 3'b100) begin
             if (cycle == 3) begin
                 result_exp = seq_item_ref.A * seq_item_ref.B;
-                seq_item_ref.done = 1;
+                done_exp = 1;
                 cycle = 0;
             end
             else begin
                 cycle++;
-                seq_item_ref.done = 0;
+                done_exp = 0;
             end
         end
     endtask 

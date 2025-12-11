@@ -1,7 +1,7 @@
 `ifndef TinyALU_DRIVER
 `define TinyALU_DRIVER
 
-class tinyalu_driver extends uvm_driver;
+class tinyalu_driver extends uvm_driver #(tinyalu_seq_item);
     `uvm_component_utils(tinyalu_driver)
 
     virtual tinyalu_if tinyalu_vif;

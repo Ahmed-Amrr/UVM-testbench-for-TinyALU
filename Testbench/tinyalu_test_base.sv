@@ -38,6 +38,7 @@ class tinyalu_test_base extends  uvm_test;
 		uvm_config_db#(tinyalu_config)::set(this, "*", "CFG", alu_config);
 	endfunction : build_phase
 
+
 	task run_phase(uvm_phase phase);
 		super.run_phase(phase);
 		phase.raise_objection(this);
@@ -52,5 +53,11 @@ class tinyalu_test_base extends  uvm_test;
 
 		phase.drop_objection(this);
 	endtask : run_phase
+
+	function void final_phase(uvm_phase phase);
+		super.final_phase(phase);
+		uvm_root::get().print_topology();
+		uvm_factory::get().print();
+	endfunction : final_phase
 endclass : tinyalu_test_base
 `endif

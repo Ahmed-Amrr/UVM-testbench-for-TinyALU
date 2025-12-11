@@ -32,7 +32,7 @@ class tinyalu_monitor extends uvm_monitor;
 		super.run_phase(phase);
 		forever begin
 			rsp_seq_item=tinyalu_seq_item::type_id::create("rsp_seq_item");
-			@(negedge tinyalu_vif.clk);
+            @(tinyalu_vif.cb);
 			rsp_seq_item.A=tinyalu_vif.A;
 			rsp_seq_item.B=tinyalu_vif.B;
 			rsp_seq_item.op=tinyalu_vif.op;
@@ -40,6 +40,7 @@ class tinyalu_monitor extends uvm_monitor;
 			rsp_seq_item.start=tinyalu_vif.start;
 			rsp_seq_item.done=tinyalu_vif.done;
 			rsp_seq_item.result=tinyalu_vif.result;
+            @(tinyalu_vif.cb);
 			mon_ap.write(rsp_seq_item);
 			/*`uvm_info("run_phase", rsp_seq_item.convert2string(), UVM_HIGH)*/
 		end
