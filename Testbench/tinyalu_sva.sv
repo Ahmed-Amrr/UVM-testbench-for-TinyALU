@@ -1,5 +1,5 @@
 module tinyalu_sva (
-  input clk,                    // ✓ Added comma
+  input clk,           
   input [7:0] A, B,
   input [2:0] op,
   input reset_n, start, done,
