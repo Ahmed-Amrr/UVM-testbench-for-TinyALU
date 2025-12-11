@@ -8,7 +8,7 @@ module tinyalu_sva (
  RST_A : assert property (@(posedge clk) (reset_n==0) |=> (done == 0 && result == 0 ));
  RST_C : cover property (@(posedge clk) (reset_n==0) |=> (done == 0 && result == 0 ));
 
-OP000_DONE_A assert property (@(posedge clk)(op==3'b000 && start==0 ) |=> (done == 0 ));
+OP000_DONE_A assert property (@(posedge clk)(op==3'b000 || start==0 ) |=> (done == 0 ));
 OP000_DONE_C cover property (@(posedge clk)(op==3'b000 || start==0 ) |=> (done == 0 ));
 ADD_A assert property (@(posedge clk) disable iff (!reset_n) (op[2]==0 && op[1:0]==2'b01 && start==1 ) |=> (done == 1 && result== $past(A) + $past(B)));
 ADD_C cover property (@(posedge clk) disable iff (!reset_n) (op[2]==0 && op[1:0]==2'b01 && start==1 ) |=> (done == 1 && result== $past(A) + $past(B)));
