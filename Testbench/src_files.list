@@ -1,9 +1,8 @@
-tinyalu.v
+tinyalu.sv
 tinyalu_if.sv
 tinyalu_seq_item.sv
 tinyalu_err_seq_item.sv
 tinyalu_config.sv
-tinyalu_sequence_item.sv
 tinyalu_driver.sv
 tinyalu_monitor.sv
 tinyalu_sequencer.sv
