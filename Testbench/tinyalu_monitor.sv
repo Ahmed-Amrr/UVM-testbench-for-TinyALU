@@ -11,7 +11,7 @@ class tinyalu_monitor extends uvm_monitor;
 /*-------------------------------------------------------------------------------
 -- Interface, port, fields
 -------------------------------------------------------------------------------*/
-	virtual tinyalu_inter tinyalu_vif; ////////////////////////////////////
+	virtual tinyalu_if tinyalu_vif; ////////////////////////////////////
 	tinyalu_seq_item rsp_seq_item;//////////////////////////////////
 	uvm_analysis_port #(tinyalu_seq_item) mon_ap;////////////////////
 

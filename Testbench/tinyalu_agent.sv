@@ -6,12 +6,12 @@ class tinyalu_agent extends uvm_agent;
 
   tinyalu_sequencer sqr;
   tinyalu_driver drv;
-  tinyalu_in_monitor mon;
+  tinyalu_monitor mon;
   tinyalu_config tinyalu_cfg;
 
   virtual tinyalu_if tinyalu_vif;
 
-  uvm_analysis_port #(tinyalu_seqitem) agt_ap;
+  uvm_analysis_port #(tinyalu_seq_item) agt_ap;
 
   function new(string name="tinyalu_agent", uvm_component parent=null);
     super.new(name,parent);
@@ -26,7 +26,7 @@ class tinyalu_agent extends uvm_agent;
 
     sqr = tinyalu_sequencer::type_id::create("sqr", this);
     drv = tinyalu_driver::type_id::create("drv", this);
-    mon = tinyalu_in_monitor::type_id::create("mon", this);
+    mon = tinyalu_monitor::type_id::create("mon", this);
   
     agt_ap = new("agt_ap", this);
   endfunction
@@ -34,7 +34,7 @@ class tinyalu_agent extends uvm_agent;
   function void connect_phase(uvm_phase phase);
     drv.tinyalu_vif=tinyalu_cfg.tinyalu_vif;
     mon.tinyalu_vif=tinyalu_cfg.tinyalu_vif;
-    drv.seqitem_port.connect(sqr.seqitem_export); //sqr.seqitem_imp
+    drv.seq_item_port.connect(sqr.seq_item_export); //sqr.seqitem_imp
     mon.mon_ap.connect(agt_ap);
   endfunction
 

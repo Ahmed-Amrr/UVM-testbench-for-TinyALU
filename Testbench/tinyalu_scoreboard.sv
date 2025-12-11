@@ -46,22 +46,22 @@ class tinyalu_scoreboard extends uvm_scoreboard;
     endtask 
 
     // golden model
-    task ref_model(tiny_alu_seq_item seq_item_ref);
+    task ref_model(tinyalu_seq_item seq_item_ref);
         if (~seq_item_ref.reset_n) begin
             result_exp = 1'b0;
             cycle = 0;
         end
-        else if(seq_item_ref.start && ~seq_item_ref.opcode[2])begin
+        else if(seq_item_ref.start && ~seq_item_ref.op[2])begin
             cycle = 0;
             seq_item_ref.done = 1;
-            case (seq_item_ref.opcode)
+            case (seq_item_ref.op)
                 3'b001: result_exp = seq_item_ref.A + seq_item_ref.B;
                 3'b010: result_exp = seq_item_ref.A & seq_item_ref.B;
                 3'b011: result_exp = seq_item_ref.A ^ seq_item_ref.B;
                 default: seq_item_ref.done = 0;
             endcase
         end
-        else if(seq_item_ref.start && seq_item_ref.opcode == 3'b100) begin
+        else if(seq_item_ref.start && seq_item_ref.op == 3'b100) begin
             if (cycle == 3) begin
                 result_exp = seq_item_ref.A * seq_item_ref.B;
                 seq_item_ref.done = 1;
@@ -76,7 +76,7 @@ class tinyalu_scoreboard extends uvm_scoreboard;
 
     // connenct phase of scoreboard
     function void connect_phase(uvm_phase phase);
-        super.connect(phase);
+        super.connect_phase(phase);
         sb_imp.connect(sb_fifo.analysis_export);
     endfunction
 

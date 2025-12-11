@@ -1,12 +1,12 @@
 `ifndef TinyALU_ERR_SEQ
 `define TinyALU_ERR_SEQ
 
-class tinyalu_err_sequence extends tinyalu_main_seq;
-`uvm_object_utils(tinyalu_err_sequence)
+class tinyalu_err_seq extends tinyalu_main_seq;
+`uvm_object_utils(tinyalu_err_seq)
 
     tinyalu_seq_item e_item;
 
-    function new(string name = "tinyalu_err_sequence");
+    function new(string name = "tinyalu_err_seq");
         super.new(name);
     endfunction //new()
 

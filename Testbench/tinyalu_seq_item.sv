@@ -1,5 +1,7 @@
 `ifndef TinyALU_SEQ_ITEM
 `define TinyALU_SEQ_ITEM
+  import uvm_pkg::*;
+  `include "uvm_macros.svh"
 
 class tinyalu_seq_item extends uvm_sequence_item;
 	`uvm_object_utils(tinyalu_seq_item)
@@ -9,6 +11,9 @@ class tinyalu_seq_item extends uvm_sequence_item;
 	rand bit [2:0] op     ;
 	rand bit	   start  ;
 	rand bit	   reset_n;
+
+	logic done;
+	logic[15:0] result;
 
 	// variables used in error testcases
 	rand bit [7:0] A_new ;
@@ -30,8 +35,8 @@ class tinyalu_seq_item extends uvm_sequence_item;
 		start   dist {1:/90, 0:/10};
 	}
 
-	soft constraint valid_op {
-		op inside {0, 1, 2, 3, 4};
+	constraint valid_op {
+		soft op inside {0, 1, 2, 3, 4};
 	}
 endclass : tinyalu_seq_item
 

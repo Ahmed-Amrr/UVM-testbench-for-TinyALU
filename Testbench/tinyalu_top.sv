@@ -1,4 +1,6 @@
 import tinyalu_pkg::*;
+import uvm_pkg::*;
+`include "uvm_macros.svh"
 
 module tinyalu_top ();
 	bit clk;
@@ -9,7 +11,7 @@ module tinyalu_top ();
 		#1 clk=~clk;
 	end
 
-	tinyalu_inter inter (clk);
+	tinyalu_if inter (clk);
 	tinyalu DUT (
 		.clk        (clk),
 		.A      (inter.A),
@@ -22,8 +24,8 @@ module tinyalu_top ();
 		);
 
 	initial begin
-		uvm_config_db#(virtual tinyalu_inter)::set(null,"uvm_test_top","VIF",inter);
-		run_test("tinyalu_test");
+		uvm_config_db#(virtual tinyalu_if)::set(null,"uvm_test_top","tinyalu_if",inter);
+		run_test();
 	end
 
 endmodule : tinyalu_top

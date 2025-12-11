@@ -1,7 +1,7 @@
 `ifndef TinyALU_COVERAGE
 `define TinyALU_COVERAGE
 
-class tinyalu_coverage extends  /* base class*/;
+class tinyalu_coverage extends  uvm_component;
 /*-------------------------------------------------------------------------------
 -- UVM Factory register
 -------------------------------------------------------------------------------*/
@@ -17,36 +17,34 @@ class tinyalu_coverage extends  /* base class*/;
 
 	covergroup CovGp ();
 		reset_c : coverpoint seq_item_cov.reset_n{
-			bins disabled {1};
-			bins abled {0};
+			bins disabled = {1};
+			bins abled = {0};
 		}
-		start_c : coverpoint seq_item_cov.start iff(!reset_n){
-			bins disabled {0};
-			bins abled {1};
+		start_c : coverpoint seq_item_cov.start iff(!seq_item_cov.reset_n){
+			bins disabled = {0};
+			bins abled = {1};
 		}
-		A_c : coverpoint seq_item_cov.A iff(!reset_n&&start){
-			bins Max {8{1'b1}};
-			bins Min {8{1'b0}};
+		A_c : coverpoint seq_item_cov.A iff(!seq_item_cov.reset_n&&seq_item_cov.start){
+			bins Max = {8'b1111_1111};
+			bins Min = {8'b0000_0000};
 			bins others = default;
 		}
-		B_c : coverpoint seq_item_cov.B iff(!reset_n&&start){
-			bins Max {8{1'b1}};
-			bins Min {8{1'b0}};
+		B_c : coverpoint seq_item_cov.B iff(!seq_item_cov.reset_n&&seq_item_cov.start){
+			bins Max = {8'b1111_1111};
+			bins Min = {8'b0000_0000};
 			bins others = default;
 		}
-		op_c : coverpoint seq_item_cov.op iff(!reset_n&&start){
-			bins no_op {3'b000};
-			bins add_op {3'b001};
-			bins and_op {3'b010};
-			bins xor_op {3'b011};
-			bins mul_op {3'b100};
-			bins unused_op {[3'b100:3'b111]};
+		op_c : coverpoint seq_item_cov.op iff(!seq_item_cov.reset_n&&seq_item_cov.start){
+			bins no_op = {3'b000};
+			bins add_op = {3'b001};
+			bins and_op = {3'b010};
+			bins xor_op = {3'b011};
+			bins mul_op = {3'b100};
+			bins unused_op = {[3'b100:3'b111]};
 		}
-		A_B_op_c : cross A_c, B_c, op_c iff(!reset_n&&start){
+		A_B_op_c : cross A_c, B_c, op_c iff(!seq_item_cov.reset_n&&seq_item_cov.start){
 			ignore_bins no_operation = binsof(op_c.no_op);
 			ignore_bins unused_operation = binsof(op_c.unused_op);
-			ignore_bins A_default = binsof(A_c.others);
-			ignore_bins B_default = binsof(B_c.others);
 		}
 
 		endgroup : CovGp

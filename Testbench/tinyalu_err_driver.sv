@@ -8,7 +8,7 @@ class tinyalu_err_driver extends uvm_driver;
     tinyalu_config    alu_cfg     ;
     tinyalu_seq_item   s_item     ;
 
-    function new(string name = "tinyalu_err_driver", parent = null);
+    function new(string name = "tinyalu_err_driver", uvm_component parent = null);
         super.new(name, parent);
     endfunction //new()
 
