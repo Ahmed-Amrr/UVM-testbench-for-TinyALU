@@ -1,6 +1,4 @@
-import tinyalu_test_pkg::*;
-import uvm_pkg::*;
-`include "uvm_macros.svh"
+import tinyalur_pkg::*;
 
 module tinyalu_top ();
 	bit clk;
