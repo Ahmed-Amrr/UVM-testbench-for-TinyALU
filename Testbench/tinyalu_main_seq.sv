@@ -22,21 +22,34 @@ class tinyalu_main_seq extends uvm_sequence#(tinyalu_seq_item);
             start_item(item);
             assert(item.randomize());
             finish_item(item);
-            // If the operation is a multiplication (op=4, start=1),
-            // the TinyALU requires inputs to stay stable
-            // for 3 cycles. So we repeat 2 more cycles
-            // with the same A, B, op, and start values.
-            if ((item.op == 4) && (item.start == 1)) begin
+            if ((item.op != 4) && (item.start == 1)) begin
                 A_1_new     = item.A;
                 B_1_new     = item.B;
                 op_1_new    = item.op;
                 start_1_new = item.start;
-                `uvm_info("UVM_MULT_TRANSACTION",$sformatf("A_new: %0d, B_new: %0d, op_new: %0d, start_new: %0d", A_1_new, B_1_new, op_1_new, start_1_new), UVM_LOW)
+                //`uvm_info("UVM_MULT_TRANSACTION",$sformatf("A_new: %0d, B_new: %0d, op_new: %0d, start_new: %0d", A_1_new, B_1_new, op_1_new, start_1_new), UVM_LOW) 
+                start_item(item);
+                assert(item.randomize() with {A == A_1_new; B == B_1_new; op == op_1_new; start == start_1_new;});
+               // `uvm_info("UVM_MULT_TRANSACTION",$sformatf("A_new: %0d, B_new: %0d, op_new: %0d, start_new: %0d", item.A, item.B, item.op, item.start), UVM_LOW)
+                finish_item(item);
+                if(item.reset_n == 0)
+                    continue;
+                end
+            // If the operation is a multiplication (op=4, start=1),
+            // the TinyALU requires inputs to stay stable
+            // for 3 cycles. So we repeat 2 more cycles
+            // with the same A, B, op, and start values.
+           else if ((item.op == 4) && (item.start == 1)) begin
+                A_1_new     = item.A;
+                B_1_new     = item.B;
+                op_1_new    = item.op;
+                start_1_new = item.start;
+               // `uvm_info("UVM_MULT_TRANSACTION",$sformatf("A_new: %0d, B_new: %0d, op_new: %0d, start_new: %0d", A_1_new, B_1_new, op_1_new, start_1_new), UVM_LOW)
 
                 // Cycle 2: force the oprations and operands to be stable
                 start_item(item);
                 assert(item.randomize() with {A == A_1_new; B == B_1_new; op == op_1_new; start == start_1_new;});
-                `uvm_info("UVM_MULT_TRANSACTION",$sformatf("A_new: %0d, B_new: %0d, op_new: %0d, start_new: %0d", item.A, item.B, item.op, item.start), UVM_LOW)
+               // `uvm_info("UVM_MULT_TRANSACTION",$sformatf("A_new: %0d, B_new: %0d, op_new: %0d, start_new: %0d", item.A, item.B, item.op, item.start), UVM_LOW)
                 finish_item(item);
                 if(item.reset_n == 0)
                     continue;
@@ -44,7 +57,7 @@ class tinyalu_main_seq extends uvm_sequence#(tinyalu_seq_item);
                 // Cycle 3: force the oprations and operands to be stable
                 start_item(item);
                 assert(item.randomize() with {A == A_1_new; B == B_1_new; op == op_1_new; start == start_1_new;});
-                `uvm_info("UVM_MULT_TRANSACTION",$sformatf("A_new: %0d, B_new: %0d, op_new: %0d, start_new: %0d", item.A, item.B, item.op, item.start), UVM_LOW)
+                //`uvm_info("UVM_MULT_TRANSACTION",$sformatf("A_new: %0d, B_new: %0d, op_new: %0d, start_new: %0d", item.A, item.B, item.op, item.start), UVM_LOW)
                 finish_item(item);
                 if(item.reset_n == 0)
                     continue;
@@ -52,7 +65,14 @@ class tinyalu_main_seq extends uvm_sequence#(tinyalu_seq_item);
                 // Cycle 4: force the oprations and operands to be stable
                 start_item(item);
                 assert(item.randomize() with {A == A_1_new; B == B_1_new; op == op_1_new; start == start_1_new;});
-                `uvm_info("UVM_MULT_TRANSACTION",$sformatf("A_new: %0d, B_new: %0d, op_new: %0d, start_new: %0d", item.A, item.B, item.op, item.start), UVM_LOW)
+                //`uvm_info("UVM_MULT_TRANSACTION",$sformatf("A_new: %0d, B_new: %0d, op_new: %0d, start_new: %0d", item.A, item.B, item.op, item.start), UVM_LOW)
+                finish_item(item);
+                if(item.reset_n == 0)
+                    continue;
+                 // Cycle 5: force the oprations and operands to be stable to make sure done nzlt
+                start_item(item);
+                assert(item.randomize() with {A == A_1_new; B == B_1_new; op == op_1_new; start == start_1_new;});
+                //`uvm_info("UVM_MULT_TRANSACTION",$sformatf("A_new: %0d, B_new: %0d, op_new: %0d, start_new: %0d", item.A, item.B, item.op, item.start), UVM_LOW)
                 finish_item(item);
                 if(item.reset_n == 0)
                     continue;

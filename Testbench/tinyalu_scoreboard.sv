@@ -38,14 +38,13 @@ class tinyalu_scoreboard extends uvm_scoreboard;
         forever begin
             sb_fifo.get(seq_item_sb);
             ref_model(seq_item_sb);
-            if (((seq_item_sb.op == 4 && cycle == 4) || seq_item_sb.op != 4) && seq_item_sb.start) begin
+            if (((seq_item_sb.op == 4 && cycle == 4) || seq_item_sb.op != 4) && seq_item_sb.start && seq_item_sb.op != 0) begin
                 if (result_exp == seq_item_sb.result && done_exp == seq_item_sb.done) begin
                     correct_count++;
                 end
                 else begin
                     error_count++;
                 end
-                cycle = 0;
             end
         end
     endtask 
@@ -73,9 +72,12 @@ class tinyalu_scoreboard extends uvm_scoreboard;
                 done_exp = 1;
                 cycle++;
             end
-            else begin
+            else if (cycle != 4)begin
                 cycle++;
-                done_exp = 0;
+            end
+            else if (cycle==4) begin
+            cycle=0;
+            done_exp = 0;
             end
         end
     endtask 
