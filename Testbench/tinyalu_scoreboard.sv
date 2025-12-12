@@ -38,13 +38,14 @@ class tinyalu_scoreboard extends uvm_scoreboard;
         forever begin
             sb_fifo.get(seq_item_sb);
             ref_model(seq_item_sb);
-            if (((seq_item_sb.op == 4 && cycle == 4) || seq_item_sb.op != 4) && seq_item_sb.start && seq_item_sb.op != 0) begin
+            if (((seq_item_sb.op == 4 && cycle == 4) || (seq_item_sb.op != 4 && cycle == 2)) && seq_item_sb.start) begin
                 if (result_exp == seq_item_sb.result && done_exp == seq_item_sb.done) begin
                     correct_count++;
                 end
                 else begin
                     error_count++;
                 end
+                cycle = 0;
             end
         end
     endtask 
@@ -57,14 +58,20 @@ class tinyalu_scoreboard extends uvm_scoreboard;
             done_exp = 0;
         end
         else if(~seq_item_ref.op[2] && seq_item_ref.start)begin
-            cycle = 0;
-            done_exp = 1;
-            case (seq_item_ref.op)
-                3'b001: result_exp = seq_item_ref.A + seq_item_ref.B;
-                3'b010: result_exp = seq_item_ref.A & seq_item_ref.B;
-                3'b011: result_exp = seq_item_ref.A ^ seq_item_ref.B;
-                default: done_exp = 0;
-            endcase
+            if (cycle == 1) begin
+                case (seq_item_ref.op)
+                    3'b001: result_exp = seq_item_ref.A + seq_item_ref.B;
+                    3'b010: result_exp = seq_item_ref.A & seq_item_ref.B;
+                    3'b011: result_exp = seq_item_ref.A ^ seq_item_ref.B;
+                    default: done_exp = 0;
+                endcase
+                done_exp = 1;
+                cycle++;
+            end
+            else begin
+                cycle++;
+                done_exp = 0;
+            end
         end
         else if(seq_item_ref.op == 3'b100 && seq_item_ref.start) begin
             if (cycle == 3) begin
@@ -72,13 +79,15 @@ class tinyalu_scoreboard extends uvm_scoreboard;
                 done_exp = 1;
                 cycle++;
             end
-            else if (cycle != 4)begin
+            else begin
                 cycle++;
+                done_exp = 0;
             end
-            else if (cycle==4) begin
-            cycle=0;
+        end
+
+        if (!seq_item_ref.start) begin
             done_exp = 0;
-            end
+            cycle = 0;
         end
     endtask 
 
