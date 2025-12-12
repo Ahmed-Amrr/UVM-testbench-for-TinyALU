@@ -23,6 +23,17 @@ module tinyalu_top ();
 		.result     (inter.result)
 		);
 
+	bind tinyalu tinyalu_sva tinyalu_sva_inst(
+		.clk        (clk),
+		.A      (inter.A),
+		.B      (inter.B),
+		.op      (inter.op),
+		.reset_n    (inter.reset_n),
+		.start       (inter.start),
+		.done      (inter.done),
+		.result     (inter.result)
+		);
+
 	initial begin
 		uvm_config_db#(virtual tinyalu_if)::set(null,"uvm_test_top","tinyalu_if",inter);
 		run_test();

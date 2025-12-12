@@ -16,7 +16,7 @@ class tinyalu_main_seq extends uvm_sequence#(tinyalu_seq_item);
     endfunction : new
 
     virtual task body();
-        for (int i = 0; i < 50; i++) begin
+        for (int i = 0; i < 20000; i++) begin
             item = tinyalu_seq_item::type_id::create("item");
             //  Cycle 1: randomize and send the item
             start_item(item);

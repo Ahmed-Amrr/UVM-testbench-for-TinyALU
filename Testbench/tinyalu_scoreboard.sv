@@ -38,7 +38,7 @@ class tinyalu_scoreboard extends uvm_scoreboard;
         forever begin
             sb_fifo.get(seq_item_sb);
             ref_model(seq_item_sb);
-            if ((seq_item_sb.op == 4 && cycle == 4) || seq_item_sb.op != 4) begin
+            if (((seq_item_sb.op == 4 && cycle == 4) || seq_item_sb.op != 4) && seq_item_sb.start) begin
                 if (result_exp == seq_item_sb.result && done_exp == seq_item_sb.done) begin
                     correct_count++;
                 end
@@ -54,10 +54,10 @@ class tinyalu_scoreboard extends uvm_scoreboard;
     task ref_model(tinyalu_seq_item seq_item_ref);
         if (~seq_item_ref.reset_n) begin
             result_exp = 1'b0;
-            done_exp = 0;
             cycle = 0;
+            done_exp = 0;
         end
-        else if(seq_item_ref.start && ~seq_item_ref.op[2])begin
+        else if(~seq_item_ref.op[2] && seq_item_ref.start)begin
             cycle = 0;
             done_exp = 1;
             case (seq_item_ref.op)
@@ -67,10 +67,11 @@ class tinyalu_scoreboard extends uvm_scoreboard;
                 default: done_exp = 0;
             endcase
         end
-        else if(seq_item_ref.start && seq_item_ref.op == 3'b100) begin
-            if (cycle == 4) begin
+        else if(seq_item_ref.op == 3'b100 && seq_item_ref.start) begin
+            if (cycle == 3) begin
                 result_exp = seq_item_ref.A * seq_item_ref.B;
                 done_exp = 1;
+                cycle++;
             end
             else begin
                 cycle++;

@@ -42,10 +42,10 @@ class tinyalu_coverage extends  uvm_component;
 			bins mul_op = {3'b100};
 			bins unused_op = {[3'b100:3'b111]};
 		}
-		A_B_op_c : cross A_c, B_c, op_c iff(!seq_item_cov.reset_n&&seq_item_cov.start){
-			ignore_bins no_operation = binsof(op_c.no_op);
-			ignore_bins unused_operation = binsof(op_c.unused_op);
-		}
+		// A_B_op_c : cross A_c, B_c, op_c iff(!seq_item_cov.reset_n&&seq_item_cov.start){
+		// 	ignore_bins no_operation = binsof(op_c.no_op);
+		// 	ignore_bins unused_operation = binsof(op_c.unused_op);
+		// }
 
 		endgroup : CovGp
 

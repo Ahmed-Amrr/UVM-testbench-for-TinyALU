@@ -29,13 +29,12 @@ class tinyalu_seq_item extends uvm_sequence_item;
 	endfunction
 
 	constraint c {
-		// reset_n dist {1:/95, 0:/5};	
-		reset_n == 1;
+		reset_n dist {1:/95, 0:/5};	
 		start   dist {1:/90, 0:/10};
 	}
 
 	constraint valid_op {
-		soft op inside {0, 1, 2, 3, 4};
+		soft op dist {0:/10, 1:/40, 2:/20, 3:/20, 4:/10};
 	}
 endclass : tinyalu_seq_item
 
