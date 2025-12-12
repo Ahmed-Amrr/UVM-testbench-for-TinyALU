@@ -69,13 +69,6 @@ class tinyalu_main_seq extends uvm_sequence#(tinyalu_seq_item);
                 finish_item(item);
                 if(item.reset_n == 0)
                     continue;
-                 // Cycle 5: force the oprations and operands to be stable to make sure done nzlt
-                start_item(item);
-                assert(item.randomize() with {A == A_1_new; B == B_1_new; op == op_1_new; start == start_1_new;});
-                //`uvm_info("UVM_MULT_TRANSACTION",$sformatf("A_new: %0d, B_new: %0d, op_new: %0d, start_new: %0d", item.A, item.B, item.op, item.start), UVM_LOW)
-                finish_item(item);
-                if(item.reset_n == 0)
-                    continue;
             end 
         end
     endtask : body

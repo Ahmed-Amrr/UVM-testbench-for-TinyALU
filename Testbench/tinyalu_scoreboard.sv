@@ -10,7 +10,6 @@ class tinyalu_scoreboard extends uvm_scoreboard;
     uvm_analysis_export #(tinyalu_seq_item) sb_imp;
     uvm_tlm_analysis_fifo #(tinyalu_seq_item) sb_fifo;
     tinyalu_seq_item seq_item_sb;
-    virtual tinyalu_if tinyalu_vif;
 
     logic [15:0] result_exp;
     logic done_exp;
