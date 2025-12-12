@@ -8,7 +8,7 @@ module tinyalu_top ();
 	initial begin
 		clk=0;
 		forever
-		#1 clk=~clk;
+		#5 clk=~clk;
 	end
 
 	tinyalu_if inter (clk);

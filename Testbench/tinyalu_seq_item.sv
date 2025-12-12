@@ -28,6 +28,14 @@ class tinyalu_seq_item extends uvm_sequence_item;
 		super.new(name);
 	endfunction
 
+	constraint A_c {
+		A dist {255:/40, 0:/40, [1:254]:/20};
+	}
+
+	constraint B_c {
+		B dist {255:/40, 0:/40, [1:254]:/20};
+	}
+
 	constraint c {
 		reset_n dist {1:/95, 0:/5};	
 		start   dist {1:/90, 0:/10};
