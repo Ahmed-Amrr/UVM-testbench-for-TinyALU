@@ -5,7 +5,6 @@ class tinyalu_err_driver extends tinyalu_driver;
     `uvm_component_utils(tinyalu_err_driver)
 
     virtual tinyalu_if tinyalu_vif;
-    tinyalu_config    alu_cfg     ;
     tinyalu_seq_item   s_item     ;
 
     function new(string name = "tinyalu_err_driver", uvm_component parent = null);
@@ -14,13 +13,6 @@ class tinyalu_err_driver extends tinyalu_driver;
 
     virtual function void build_phase (uvm_phase phase);
         super.build_phase(phase);
-        if(!uvm_config_db#(tinyalu_config)::get(this, "", "CFG", alu_cfg))
-            `uvm_fatal("TINY ALU ERROR DRIVER", "Can't get the configuration object!!")
-    endfunction
-
-    function void connect_phase(uvm_phase phase);
-        super.connect_phase(phase);
-        tinyalu_vif = alu_cfg.tinyalu_vif;
     endfunction
 
     virtual task run_phase(uvm_phase phase);

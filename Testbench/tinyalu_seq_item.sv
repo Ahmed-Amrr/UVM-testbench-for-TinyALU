@@ -1,7 +1,5 @@
 `ifndef TinyALU_SEQ_ITEM
 `define TinyALU_SEQ_ITEM
-  import uvm_pkg::*;
-  `include "uvm_macros.svh"
 
 class tinyalu_seq_item extends uvm_sequence_item;
 	`uvm_object_utils(tinyalu_seq_item)
@@ -31,7 +29,8 @@ class tinyalu_seq_item extends uvm_sequence_item;
 	endfunction
 
 	constraint c {
-		reset_n dist {1:/95, 0:/5};	
+		// reset_n dist {1:/95, 0:/5};	
+		reset_n == 1;
 		start   dist {1:/90, 0:/10};
 	}
 

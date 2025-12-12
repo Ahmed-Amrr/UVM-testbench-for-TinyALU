@@ -40,7 +40,6 @@ class tinyalu_monitor extends uvm_monitor;
 			rsp_seq_item.start=tinyalu_vif.start;
 			rsp_seq_item.done=tinyalu_vif.done;
 			rsp_seq_item.result=tinyalu_vif.result;
-            @(tinyalu_vif.cb);
 			mon_ap.write(rsp_seq_item);
 			/*`uvm_info("run_phase", rsp_seq_item.convert2string(), UVM_HIGH)*/
 		end
