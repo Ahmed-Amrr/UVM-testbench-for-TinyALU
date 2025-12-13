@@ -29,8 +29,8 @@ class tinyalu_test_base extends  uvm_test;
 	function void build_phase(uvm_phase phase);
 		super.build_phase(phase);
 		alu_config = tinyalu_config::type_id::create("alu_config");
-		main_seq = tinyalu_main_seq::type_id::create("main_seq");
-		reset_seq = tinyalu_reset_seq::type_id::create("reset_seq");
+		// main_seq = tinyalu_main_seq::type_id::create("main_seq");
+		// reset_seq = tinyalu_reset_seq::type_id::create("reset_seq");
 		env = tinyalu_env::type_id::create("env", this);
 
 		if (!(uvm_config_db#(virtual tinyalu_if)::get(this, "", "tinyalu_if", alu_config.tinyalu_vif))) 
@@ -42,6 +42,9 @@ class tinyalu_test_base extends  uvm_test;
 	task run_phase(uvm_phase phase);
 		super.run_phase(phase);
 		phase.raise_objection(this);
+
+		main_seq = tinyalu_main_seq::type_id::create("main_seq");
+		reset_seq = tinyalu_reset_seq::type_id::create("reset_seq");
 
 		`uvm_info("run phase", "Reset Asserted", UVM_LOW);
 		reset_seq.start(env.agent.sqr);

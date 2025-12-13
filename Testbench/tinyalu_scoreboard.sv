@@ -83,8 +83,7 @@ class tinyalu_scoreboard extends uvm_scoreboard;
                 done_exp = 0;
             end
         end
-
-        if (!seq_item_ref.start) begin
+        else begin
             done_exp = 0;
             cycle = 0;
         end

@@ -22,6 +22,8 @@ class tinyalu_main_seq extends uvm_sequence#(tinyalu_seq_item);
             start_item(item);
             assert(item.randomize());
             finish_item(item);
+            if(item.reset_n == 0)
+            continue;
             if ((item.op != 4) && (item.start == 1)) begin
                 A_1_new     = item.A;
                 B_1_new     = item.B;
