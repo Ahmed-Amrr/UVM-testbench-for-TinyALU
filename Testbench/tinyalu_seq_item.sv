@@ -29,11 +29,11 @@ class tinyalu_seq_item extends uvm_sequence_item;
 	endfunction
 
 	constraint A_c {
-		A dist {255:/40, 0:/40, [1:254]:/20};
+		A dist {255:/20, 0:/20, [1:254]:/60};
 	}
 
 	constraint B_c {
-		B dist {255:/40, 0:/40, [1:254]:/20};
+		B dist {255:/20, 0:/20, [1:254]:/60};
 	}
 
 	constraint c {
