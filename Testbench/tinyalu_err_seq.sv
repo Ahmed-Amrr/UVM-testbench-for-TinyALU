@@ -11,10 +11,17 @@ class tinyalu_err_seq extends tinyalu_main_seq;
     endfunction //new()
 
     virtual task body();
-        e_item = tinyalu_err_seq_item::type_id::create("e_item");
-        for (int i = 0; i < 100; i++) begin
+    `uvm_info(get_type_name(), "=== ERROR SEQUENCE STARTED ===", UVM_MEDIUM);
+        for (int i = 0; i < 1000; i++) begin
+            e_item = tinyalu_seq_item::type_id::create("e_item");
             start_item(e_item);
+            e_item.valid_op.constraint_mode(0);
             assert(e_item.randomize());
+            // Debug: print the error type and opcode
+            `uvm_info(get_type_name(), 
+                $sformatf("Item %0d: op=%0d, op_stable_err=%0b, operands_stable_err=%0b, invalid_opcode=%0b",
+                    i, e_item.op, e_item.op_stable_err, e_item.operands_stable_err, e_item.invalid_opcode), 
+                UVM_MEDIUM)
             finish_item(e_item);
         end
     endtask: body
