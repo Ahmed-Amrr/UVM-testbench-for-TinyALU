@@ -1,0 +1,2336 @@
+Coverage Report by instance with details
+
+=================================================================================
+=== Instance: /tinyalu_top/inter
+=== Design Unit: work.tinyalu_if
+=================================================================================
+Statement Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Statements                       3         3         0   100.00%
+
+================================Statement Details================================
+
+Statement Coverage for instance /tinyalu_top/inter --
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File tinyalu_if.sv
+    1                                                interface tinyalu_if (input clk);
+    2                                                  logic [7:0] A, B;
+    3                                                  logic [2:0] op;
+    4                                                  logic reset_n,start,done;
+    5                                                  logic [15:0] result;
+    6               1                          1       clocking cb @(posedge clk);
+    7                                                  default input #1ns output #2ns; // inputs sampled 1ns before pos edge of clk
+    8                                                  //outputs driven 2ns after pos clk edge
+    9                                                  output A, B, op, reset_n, start;
+    10              1                          1       input done, result;
+    10              2                          1     
+
+Toggle Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Toggles                         78        78         0   100.00%
+
+================================Toggle Details================================
+
+Toggle Coverage for instance /tinyalu_top/inter --
+
+                                              Node      1H->0L      0L->1H  "Coverage"
+                                              ---------------------------------------
+                                            A[7-0]           1           1      100.00 
+                                            B[7-0]           1           1      100.00 
+                                               clk           1           1      100.00 
+                                              done           1           1      100.00 
+                                           op[2-0]           1           1      100.00 
+                                           reset_n           1           1      100.00 
+                                      result[15-0]           1           1      100.00 
+                                             start           1           1      100.00 
+
+Total Node Count     =         39 
+Toggled Node Count   =         39 
+Untoggled Node Count =          0 
+
+Toggle Coverage      =     100.00% (78 of 78 bins)
+
+=================================================================================
+=== Instance: /tinyalu_top/DUT/and_add_xor
+=== Design Unit: work.single_cycle
+=================================================================================
+Branch Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Branches                         8         8         0   100.00%
+
+================================Branch Details================================
+
+Branch Coverage for instance /tinyalu_top/DUT/and_add_xor
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File tinyalu.sv
+------------------------------------IF Branch------------------------------------
+    40                                     33404     Count coming in to IF
+    40              1                       1972         if (!reset_n)
+    42              1                      31432         else
+Branch totals: 2 hits of 2 branches = 100.00%
+
+------------------------------------CASE Branch------------------------------------
+    43                                     31432     Count coming in to CASE
+    44              1                      13869     		3'b001 : result <= A + B;
+    45              1                       6948     		3'b010 : result <= A & B;
+    46              1                       6763     		3'b011 : result <= A ^ B;
+                                            3852     All False Count
+Branch totals: 4 hits of 4 branches = 100.00%
+
+------------------------------------IF Branch------------------------------------
+    50                                     24071     Count coming in to IF
+    50              1                       1963          if (!reset_n)
+    52              1                      22108          else
+Branch totals: 2 hits of 2 branches = 100.00%
+
+
+Expression Coverage:
+    Enabled Coverage              Bins   Covered    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Expressions                      2         2         0   100.00%
+
+================================Expression Details================================
+
+Expression Coverage for instance /tinyalu_top/DUT/and_add_xor --
+
+  File tinyalu.sv
+----------------Focused Expression View-----------------
+Line       53 Item    1  (start && (op != 0))
+Expression totals: 2 of 2 input terms covered = 100.00%
+
+  Input Term   Covered  Reason for no coverage   Hint
+ -----------  --------  -----------------------  --------------
+       start         Y
+   (op != 0)         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  start_0               -                             
+  Row   2:          1  start_1               (op != 0)                     
+  Row   3:          1  (op != 0)_0           start                         
+  Row   4:          1  (op != 0)_1           start                         
+
+
+Statement Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Statements                       8         8         0   100.00%
+
+================================Statement Details================================
+
+Statement Coverage for instance /tinyalu_top/DUT/and_add_xor --
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File tinyalu.sv
+    30                                               module single_cycle(input [7:0] A,
+    31                                               		   input [7:0] B,
+    32                                               		   input [2:0] op,
+    33                                               		   input clk,
+    34                                               		   input reset_n,
+    35                                               		   input start,
+    36                                               		   output logic done,
+    37                                               		   output logic [15:0] result);
+    38                                               
+    39              1                      33404       always @(posedge clk)
+    40                                                   if (!reset_n)
+    41              1                       1972           result <= 0;
+    42                                                   else
+    43                                                     case(op)
+    44              1                      13869     		3'b001 : result <= A + B;
+    45              1                       6948     		3'b010 : result <= A & B;
+    46              1                       6763     		3'b011 : result <= A ^ B;
+    47                                                     endcase // case (op)
+    48                                               
+    49              1                      24071        always @(posedge clk)
+    50                                                    if (!reset_n)
+    51              1                       1963            done <= 0;
+    52                                                    else
+    53              1                      22108            done =  ((start == 1'b1) && (op != 3'b000));
+
+Toggle Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Toggles                         78        64        14    82.05%
+
+================================Toggle Details================================
+
+Toggle Coverage for instance /tinyalu_top/DUT/and_add_xor --
+
+                                              Node      1H->0L      0L->1H  "Coverage"
+                                              ---------------------------------------
+                                            A[0-7]           1           1      100.00 
+                                            B[0-7]           1           1      100.00 
+                                               clk           1           1      100.00 
+                                              done           1           1      100.00 
+                                           op[0-2]           1           1      100.00 
+                                           reset_n           1           1      100.00 
+                                      result[15-9]           0           0        0.00 
+                                       result[8-0]           1           1      100.00 
+                                             start           1           1      100.00 
+
+Total Node Count     =         39 
+Toggled Node Count   =         32 
+Untoggled Node Count =          7 
+
+Toggle Coverage      =      82.05% (64 of 78 bins)
+
+=================================================================================
+=== Instance: /tinyalu_top/DUT/mult
+=== Design Unit: work.three_cycle
+=================================================================================
+Branch Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Branches                         2         2         0   100.00%
+
+================================Branch Details================================
+
+Branch Coverage for instance /tinyalu_top/DUT/mult
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File tinyalu.sv
+------------------------------------IF Branch------------------------------------
+    72                                     40211     Count coming in to IF
+    72              1                       1972          if (!reset_n) begin
+    82              1                      38239          end else begin // if (!reset_n)
+Branch totals: 2 hits of 2 branches = 100.00%
+
+
+Expression Coverage:
+    Enabled Coverage              Bins   Covered    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Expressions                      8         8         0   100.00%
+
+================================Expression Details================================
+
+Expression Coverage for instance /tinyalu_top/DUT/mult --
+
+  File tinyalu.sv
+----------------Focused Expression View-----------------
+Line       88 Item    1  (start & ~done)
+Expression totals: 2 of 2 input terms covered = 100.00%
+
+  Input Term   Covered  Reason for no coverage   Hint
+ -----------  --------  -----------------------  --------------
+       start         Y
+        done         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  start_0               ~done                         
+  Row   2:          1  start_1               ~done                         
+  Row   3:          1  done_0                start                         
+  Row   4:          1  done_1                start                         
+
+----------------Focused Expression View-----------------
+Line       89 Item    1  (done3 & ~done)
+Expression totals: 2 of 2 input terms covered = 100.00%
+
+  Input Term   Covered  Reason for no coverage   Hint
+ -----------  --------  -----------------------  --------------
+       done3         Y
+        done         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  done3_0               ~done                         
+  Row   2:          1  done3_1               ~done                         
+  Row   3:          1  done_0                done3                         
+  Row   4:          1  done_1                done3                         
+
+----------------Focused Expression View-----------------
+Line       90 Item    1  (done2 & ~done)
+Expression totals: 2 of 2 input terms covered = 100.00%
+
+  Input Term   Covered  Reason for no coverage   Hint
+ -----------  --------  -----------------------  --------------
+       done2         Y
+        done         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  done2_0               ~done                         
+  Row   2:          1  done2_1               ~done                         
+  Row   3:          1  done_0                done2                         
+  Row   4:          1  done_1                done2                         
+
+----------------Focused Expression View-----------------
+Line       91 Item    1  (done1 & ~done)
+Expression totals: 2 of 2 input terms covered = 100.00%
+
+  Input Term   Covered  Reason for no coverage   Hint
+ -----------  --------  -----------------------  --------------
+       done1         Y
+        done         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  done1_0               ~done                         
+  Row   2:          1  done1_1               ~done                         
+  Row   3:          1  done_0                done1                         
+  Row   4:          1  done_1                done1                         
+
+
+Statement Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Statements                      19        19         0   100.00%
+
+================================Statement Details================================
+
+Statement Coverage for instance /tinyalu_top/DUT/mult --
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File tinyalu.sv
+    58                                               module three_cycle(input [7:0] A,
+    59                                               		   input [7:0] B,
+    60                                               		   input [2:0] op,
+    61                                               		   input clk,
+    62                                               		   input reset_n,
+    63                                               		   input start,
+    64                                               		   output logic done,
+    65                                               		   output logic [15:0] result);
+    66                                               
+    67                                                  logic [7:0] 			       a_int, b_int;
+    68                                                  logic [15:0] 		       mult1, mult2;
+    69                                                  logic 			       done1, done2, done3;
+    70                                               
+    71              1                      40211        always @(posedge clk)
+    72                                                    if (!reset_n) begin
+    73              1                       1972     	done  <= 0;
+    74              1                       1972     	done3 <= 0;
+    75              1                       1972     	done2 <= 0;
+    76              1                       1972     	done1 <= 0;
+    77              1                       1972     	a_int <= 0;
+    78              1                       1972     	b_int <= 0;
+    79              1                       1972     	mult1 <= 0;
+    80              1                       1972     	mult2 <= 0;
+    81              1                       1972     	result<= 0;
+    82                                                    end else begin // if (!reset_n)
+    83              1                      38239     	a_int  <= A;
+    84              1                      38239     	b_int  <= B;
+    85              1                      38239     	mult1  <= a_int * b_int;
+    86              1                      38239     	mult2  <= mult1;
+    87              1                      38239     	result <= mult2;
+    88              1                      38239     	done3  <= start & !done;
+    89              1                      38239     	done2  <= done3 & !done;
+    90              1                      38239     	done1  <= done2 & !done;
+    91              1                      38239     	done   <= done1 & !done;
+
+Toggle Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Toggles                        180       180         0   100.00%
+
+================================Toggle Details================================
+
+Toggle Coverage for instance /tinyalu_top/DUT/mult --
+
+                                              Node      1H->0L      0L->1H  "Coverage"
+                                              ---------------------------------------
+                                            A[0-7]           1           1      100.00 
+                                            B[0-7]           1           1      100.00 
+                                        a_int[7-0]           1           1      100.00 
+                                        b_int[7-0]           1           1      100.00 
+                                               clk           1           1      100.00 
+                                              done           1           1      100.00 
+                                             done1           1           1      100.00 
+                                             done2           1           1      100.00 
+                                             done3           1           1      100.00 
+                                       mult1[15-0]           1           1      100.00 
+                                       mult2[15-0]           1           1      100.00 
+                                           op[0-2]           1           1      100.00 
+                                           reset_n           1           1      100.00 
+                                      result[15-0]           1           1      100.00 
+                                             start           1           1      100.00 
+
+Total Node Count     =         90 
+Toggled Node Count   =         90 
+Untoggled Node Count =          0 
+
+Toggle Coverage      =     100.00% (180 of 180 bins)
+
+=================================================================================
+=== Instance: /tinyalu_top/DUT/tinyalu_sva_inst
+=== Design Unit: work.tinyalu_sva
+=================================================================================
+
+Assertion Coverage:
+    Assertions                       7         6         1    85.71%
+--------------------------------------------------------------------
+Name                 File(Line)                   Failure      Pass 
+                                                  Count        Count
+--------------------------------------------------------------------
+/tinyalu_top/DUT/tinyalu_sva_inst/RST_A
+                     tinyalu_sva.sv(8)                  0          1
+/tinyalu_top/DUT/tinyalu_sva_inst/OP000_DONE_A
+                     tinyalu_sva.sv(11)                 2          1
+/tinyalu_top/DUT/tinyalu_sva_inst/ADD_A
+                     tinyalu_sva.sv(14)                 0          1
+/tinyalu_top/DUT/tinyalu_sva_inst/AND_A
+                     tinyalu_sva.sv(17)                 0          1
+/tinyalu_top/DUT/tinyalu_sva_inst/XOR_A
+                     tinyalu_sva.sv(20)                 0          1
+/tinyalu_top/DUT/tinyalu_sva_inst/SINGLE_END_A
+                     tinyalu_sva.sv(23)                 0          1
+/tinyalu_top/DUT/tinyalu_sva_inst/MULT_A
+                     tinyalu_sva.sv(26)                 0          1
+
+Directive Coverage:
+    Directives                       7         7         0   100.00%
+
+DIRECTIVE COVERAGE:
+--------------------------------------------------------------------------------------------
+Name                                     Design Design   Lang File(Line)      Hits Status    
+                                         Unit   UnitType                                     
+--------------------------------------------------------------------------------------------
+/tinyalu_top/DUT/tinyalu_sva_inst/RST_C  tinyalu_sva Verilog  SVA  tinyalu_sva.sv(9)
+                                                                              1972 Covered   
+/tinyalu_top/DUT/tinyalu_sva_inst/OP000_DONE_C 
+                                         tinyalu_sva Verilog  SVA  tinyalu_sva.sv(12)
+                                                                              5549 Covered   
+/tinyalu_top/DUT/tinyalu_sva_inst/ADD_C  tinyalu_sva Verilog  SVA  tinyalu_sva.sv(15)
+                                                                              8633 Covered   
+/tinyalu_top/DUT/tinyalu_sva_inst/AND_C  tinyalu_sva Verilog  SVA  tinyalu_sva.sv(18)
+                                                                              3941 Covered   
+/tinyalu_top/DUT/tinyalu_sva_inst/XOR_C  tinyalu_sva Verilog  SVA  tinyalu_sva.sv(21)
+                                                                              3656 Covered   
+/tinyalu_top/DUT/tinyalu_sva_inst/SINGLE_END_C 
+                                         tinyalu_sva Verilog  SVA  tinyalu_sva.sv(24)
+                                                                              21845 Covered   
+/tinyalu_top/DUT/tinyalu_sva_inst/MULT_C tinyalu_sva Verilog  SVA  tinyalu_sva.sv(27)
+                                                                               137 Covered   
+Toggle Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Toggles                         78        78         0   100.00%
+
+================================Toggle Details================================
+
+Toggle Coverage for instance /tinyalu_top/DUT/tinyalu_sva_inst --
+
+                                              Node      1H->0L      0L->1H  "Coverage"
+                                              ---------------------------------------
+                                            A[0-7]           1           1      100.00 
+                                            B[0-7]           1           1      100.00 
+                                               clk           1           1      100.00 
+                                              done           1           1      100.00 
+                                           op[0-2]           1           1      100.00 
+                                           reset_n           1           1      100.00 
+                                      result[0-15]           1           1      100.00 
+                                             start           1           1      100.00 
+
+Total Node Count     =         39 
+Toggled Node Count   =         39 
+Untoggled Node Count =          0 
+
+Toggle Coverage      =     100.00% (78 of 78 bins)
+
+=================================================================================
+=== Instance: /tinyalu_top/DUT
+=== Design Unit: work.tinyalu
+=================================================================================
+Branch Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Branches                         4         4         0   100.00%
+
+================================Branch Details================================
+
+Branch Coverage for instance /tinyalu_top/DUT
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File tinyalu.sv
+------------------------------------IF Branch------------------------------------
+    23                                     16211     Count coming in to IF
+    23              1                       4792        assign done = (op[2]) ? done_mult : done_aax;
+    23              2                      11419        assign done = (op[2]) ? done_mult : done_aax;
+Branch totals: 2 hits of 2 branches = 100.00%
+
+------------------------------------IF Branch------------------------------------
+    25                                     32108     Count coming in to IF
+    25              1                       4844        assign result = (op[2]) ? result_mult :  result_aax;
+    25              2                      27264        assign result = (op[2]) ? result_mult :  result_aax;
+Branch totals: 2 hits of 2 branches = 100.00%
+
+
+Expression Coverage:
+    Enabled Coverage              Bins   Covered    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Expressions                      7         7         0   100.00%
+
+================================Expression Details================================
+
+Expression Coverage for instance /tinyalu_top/DUT --
+
+  File tinyalu.sv
+----------------Focused Expression View-----------------
+Line       13 Item    1  (start & ~op[2])
+Expression totals: 2 of 2 input terms covered = 100.00%
+
+  Input Term   Covered  Reason for no coverage   Hint
+ -----------  --------  -----------------------  --------------
+       start         Y
+       op[2]         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  start_0               ~op[2]                        
+  Row   2:          1  start_1               ~op[2]                        
+  Row   3:          1  op[2]_0               start                         
+  Row   4:          1  op[2]_1               start                         
+
+----------------Focused Expression View-----------------
+Line       14 Item    1  (start & op[2])
+Expression totals: 2 of 2 input terms covered = 100.00%
+
+  Input Term   Covered  Reason for no coverage   Hint
+ -----------  --------  -----------------------  --------------
+       start         Y
+       op[2]         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  start_0               op[2]                         
+  Row   2:          1  start_1               op[2]                         
+  Row   3:          1  op[2]_0               start                         
+  Row   4:          1  op[2]_1               start                         
+
+-----------Focused Expression View (Bimodal)------------
+Line       23 Item    1  (op[2]? done_mult: done_aax)
+Expression totals: 3 of 3 input terms covered = 100.00%
+
+   Input Term   Covered  Reason for no coverage                  Hint
+  -----------  --------  --------------------------------------  --------------
+        op[2]         Y
+    done_mult         Y
+     done_aax         Y
+
+    Rows:   Hits(->0)   Hits(->1)  FEC Target            Non-masking condition(s)           
+
+---------  ----------  ----------  --------------------  -------------------------          
+ Row   1:           1           1  op[2]_0               -                                  
+ Row   2:           1           0  op[2]_1               -                                  
+ Row   3:           1           0  done_mult_0           op[2]                              
+ Row   4:           0           1  done_mult_1           op[2]                              
+ Row   5:           1           0  done_aax_0            ~op[2]                             
+ Row   6:           0           1  done_aax_1            ~op[2]                             
+
+
+Statement Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Statements                       4         4         0   100.00%
+
+================================Statement Details================================
+
+Statement Coverage for instance /tinyalu_top/DUT --
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File tinyalu.sv
+    1                                                module tinyalu (input [7:0] A,
+    2                                                		input [7:0] B,
+    3                                                		input [2:0] op,
+    4                                                		input clk,
+    5                                                		input reset_n,
+    6                                                		input start,
+    7                                                		output done,
+    8                                                		output [15:0] result);
+    9                                                
+    10                                                  wire [15:0] 		      result_aax, result_mult;
+    11                                                  wire 		      start_single, start_mult;
+    12                                               
+    13              1                       6653        assign start_single = start & ~op[2];
+    14              1                       6653        assign start_mult   = start & op[2];
+    15                                               
+    16                                                  single_cycle and_add_xor (.A, .B, .op, .clk, .reset_n, .start(start_single),
+    17                                               			     .done(done_aax), .result(result_aax));
+    18                                                  
+    19                                                  three_cycle mult (.A, .B, .op, .clk, .reset_n, .start(start_mult),
+    20                                               		    .done(done_mult), .result(result_mult));
+    21                                               
+    22                                               
+    23              1                      16212        assign done = (op[2]) ? done_mult : done_aax;
+    24                                               
+    25              1                      32109        assign result = (op[2]) ? result_mult :  result_aax;
+
+Toggle Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Toggles                        136       136         0   100.00%
+
+================================Toggle Details================================
+
+Toggle Coverage for instance /tinyalu_top/DUT --
+
+                                              Node      1H->0L      0L->1H  "Coverage"
+                                              ---------------------------------------
+                                            A[0-7]           1           1      100.00 
+                                            B[0-7]           1           1      100.00 
+                                               clk           1           1      100.00 
+                                              done           1           1      100.00 
+                                          done_aax           1           1      100.00 
+                                         done_mult           1           1      100.00 
+                                           op[0-2]           1           1      100.00 
+                                           reset_n           1           1      100.00 
+                                      result[0-15]           1           1      100.00 
+                                   result_aax[0-8]           1           1      100.00 
+                                 result_mult[0-15]           1           1      100.00 
+                                             start           1           1      100.00 
+                                        start_mult           1           1      100.00 
+                                      start_single           1           1      100.00 
+
+Total Node Count     =         68 
+Toggled Node Count   =         68 
+Untoggled Node Count =          0 
+
+Toggle Coverage      =     100.00% (136 of 136 bins)
+
+=================================================================================
+=== Instance: /tinyalu_top
+=== Design Unit: work.tinyalu_top
+=================================================================================
+Statement Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Statements                       6         6         0   100.00%
+
+================================Statement Details================================
+
+Statement Coverage for instance /tinyalu_top --
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File tinyalu_top.sv
+    5                                                module tinyalu_top ();
+    6                                                	bit clk;
+    7                                                
+    8                                                	initial begin
+    9               1                          1     		clk=0;
+    10              1                          1     		forever
+    11              1                      80626     		#5 clk=~clk;
+    11              2                      80625     
+    12                                               	end
+    13                                               
+    14                                               	tinyalu_if inter (clk);
+    15                                               	tinyalu DUT (
+    16                                               		.clk        (clk),
+    17                                               		.A      (inter.A),
+    18                                               		.B      (inter.B),
+    19                                               		.op      (inter.op),
+    20                                               		.reset_n    (inter.reset_n),
+    21                                               		.start       (inter.start),
+    22                                               		.done      (inter.done),
+    23                                               		.result     (inter.result)
+    24                                               		);
+    25                                               
+    26                                               	bind tinyalu tinyalu_sva tinyalu_sva_inst(
+    27                                               		.clk        (clk),
+    28                                               		.A      (inter.A),
+    29                                               		.B      (inter.B),
+    30                                               		.op      (inter.op),
+    31                                               		.reset_n    (inter.reset_n),
+    32                                               		.start       (inter.start),
+    33                                               		.done      (inter.done),
+    34                                               		.result     (inter.result)
+    35                                               		);
+    36                                               
+    37                                               	initial begin
+    38              1                          1     		uvm_config_db#(virtual tinyalu_if)::set(null,"uvm_test_top","tinyalu_if",inter);
+    39              1                          1     		run_test();
+
+Toggle Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Toggles                          2         2         0   100.00%
+
+================================Toggle Details================================
+
+Toggle Coverage for instance /tinyalu_top --
+
+                                              Node      1H->0L      0L->1H  "Coverage"
+                                              ---------------------------------------
+                                               clk           1           1      100.00 
+
+Total Node Count     =          1 
+Toggled Node Count   =          1 
+Untoggled Node Count =          0 
+
+Toggle Coverage      =     100.00% (2 of 2 bins)
+
+=================================================================================
+=== Instance: /tinyalu_pkg
+=== Design Unit: work.tinyalu_pkg
+=================================================================================
+
+Assertion Coverage:
+    Assertions                       6         6         0   100.00%
+--------------------------------------------------------------------
+Name                 File(Line)                   Failure      Pass 
+                                                  Count        Count
+--------------------------------------------------------------------
+/tinyalu_pkg/tinyalu_main_seq/body/#anonblk#138568935#19#4#/#ublk#138568935#19/immed__23
+                     tinyalu_main_seq.sv(23)            0          1
+/tinyalu_pkg/tinyalu_main_seq/body/#anonblk#138568935#19#4#/#ublk#138568935#19/#ublk#138568935#27/immed__34
+                     tinyalu_main_seq.sv(34)            0          1
+/tinyalu_pkg/tinyalu_main_seq/body/#anonblk#138568935#19#4#/#ublk#138568935#19/#ublk#138568935#44/immed__69
+                     tinyalu_main_seq.sv(69)            0          1
+/tinyalu_pkg/tinyalu_main_seq/body/#anonblk#138568935#19#4#/#ublk#138568935#19/#ublk#138568935#44/immed__61
+                     tinyalu_main_seq.sv(61)            0          1
+/tinyalu_pkg/tinyalu_main_seq/body/#anonblk#138568935#19#4#/#ublk#138568935#19/#ublk#138568935#44/immed__53
+                     tinyalu_main_seq.sv(53)            0          1
+/tinyalu_pkg/tinyalu_reset_seq/body/immed__16
+                     tinyalu_reset_seq.sv(16)           0          1
+Branch Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Branches                       117        43        74    36.75%
+
+================================Branch Details================================
+
+Branch Coverage for instance /tinyalu_pkg
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File tinyalu_config.sv
+------------------------------------IF Branch------------------------------------
+    5                                    ***0***     Count coming in to IF
+    5               1                    ***0***         `uvm_object_utils (tinyalu_config)
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+------------------------------------IF Branch------------------------------------
+    5                                    ***0***     Count coming in to IF
+    5               2                    ***0***         `uvm_object_utils (tinyalu_config)
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+------------------------------------IF Branch------------------------------------
+    5                                    ***0***     Count coming in to IF
+    5               3                    ***0***         `uvm_object_utils (tinyalu_config)
+    5               4                    ***0***         `uvm_object_utils (tinyalu_config)
+Branch totals: 0 hits of 2 branches = 0.00%
+
+------------------------------------IF Branch------------------------------------
+    5                                    ***0***     Count coming in to IF
+    5               5                    ***0***         `uvm_object_utils (tinyalu_config)
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+------------------------------------IF Branch------------------------------------
+    5                                    ***0***     Count coming in to IF
+    5               6                    ***0***         `uvm_object_utils (tinyalu_config)
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+
+  File tinyalu_seq_item.sv
+------------------------------------IF Branch------------------------------------
+    5                                    ***0***     Count coming in to IF
+    5               1                    ***0***     	`uvm_object_utils(tinyalu_seq_item)
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+------------------------------------IF Branch------------------------------------
+    5                                      40313     Count coming in to IF
+    5               2                    ***0***     	`uvm_object_utils(tinyalu_seq_item)
+                                           40313     All False Count
+Branch totals: 1 hit of 2 branches = 50.00%
+
+------------------------------------IF Branch------------------------------------
+    5                                    ***0***     Count coming in to IF
+    5               3                    ***0***     	`uvm_object_utils(tinyalu_seq_item)
+    5               4                    ***0***     	`uvm_object_utils(tinyalu_seq_item)
+Branch totals: 0 hits of 2 branches = 0.00%
+
+------------------------------------IF Branch------------------------------------
+    5                                      40313     Count coming in to IF
+    5               5                    ***0***     	`uvm_object_utils(tinyalu_seq_item)
+                                           40313     All False Count
+Branch totals: 1 hit of 2 branches = 50.00%
+
+------------------------------------IF Branch------------------------------------
+    5                                    ***0***     Count coming in to IF
+    5               6                    ***0***     	`uvm_object_utils(tinyalu_seq_item)
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+
+  File tinyalu_err_seq_item.sv
+------------------------------------IF Branch------------------------------------
+    5                                    ***0***     Count coming in to IF
+    5               1                    ***0***     	`uvm_object_utils(tinyalu_err_seq_item)
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+------------------------------------IF Branch------------------------------------
+    5                                    ***0***     Count coming in to IF
+    5               2                    ***0***     	`uvm_object_utils(tinyalu_err_seq_item)
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+------------------------------------IF Branch------------------------------------
+    5                                    ***0***     Count coming in to IF
+    5               3                    ***0***     	`uvm_object_utils(tinyalu_err_seq_item)
+    5               4                    ***0***     	`uvm_object_utils(tinyalu_err_seq_item)
+Branch totals: 0 hits of 2 branches = 0.00%
+
+------------------------------------IF Branch------------------------------------
+    5                                    ***0***     Count coming in to IF
+    5               5                    ***0***     	`uvm_object_utils(tinyalu_err_seq_item)
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+------------------------------------IF Branch------------------------------------
+    5                                    ***0***     Count coming in to IF
+    5               6                    ***0***     	`uvm_object_utils(tinyalu_err_seq_item)
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+
+  File tinyalu_main_seq.sv
+------------------------------------IF Branch------------------------------------
+    5                                    ***0***     Count coming in to IF
+    5               1                    ***0***         `uvm_object_utils(tinyalu_main_seq)
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+------------------------------------IF Branch------------------------------------
+    5                                          1     Count coming in to IF
+    5               2                    ***0***         `uvm_object_utils(tinyalu_main_seq)
+                                               1     All False Count
+Branch totals: 1 hit of 2 branches = 50.00%
+
+------------------------------------IF Branch------------------------------------
+    5                                    ***0***     Count coming in to IF
+    5               3                    ***0***         `uvm_object_utils(tinyalu_main_seq)
+    5               4                    ***0***         `uvm_object_utils(tinyalu_main_seq)
+Branch totals: 0 hits of 2 branches = 0.00%
+
+------------------------------------IF Branch------------------------------------
+    5                                          1     Count coming in to IF
+    5               5                    ***0***         `uvm_object_utils(tinyalu_main_seq)
+                                               1     All False Count
+Branch totals: 1 hit of 2 branches = 50.00%
+
+------------------------------------IF Branch------------------------------------
+    5                                    ***0***     Count coming in to IF
+    5               6                    ***0***         `uvm_object_utils(tinyalu_main_seq)
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+------------------------------------IF Branch------------------------------------
+    25                                     20000     Count coming in to IF
+    25              1                       1011                 if(item.reset_n == 0)
+                                           18989     All False Count
+Branch totals: 2 hits of 2 branches = 100.00%
+
+------------------------------------IF Branch------------------------------------
+    27                                     18989     Count coming in to IF
+    27              1                      15342                 if ((item.op != 4) && (item.start == 1)) begin
+    44              1                       1740                else if ((item.op == 4) && (item.start == 1)) begin
+                                            1907     All False Count
+Branch totals: 3 hits of 3 branches = 100.00%
+
+------------------------------------IF Branch------------------------------------
+    37                                     15342     Count coming in to IF
+    37              1                        725                     if(item.reset_n == 0)
+                                           14617     All False Count
+Branch totals: 2 hits of 2 branches = 100.00%
+
+------------------------------------IF Branch------------------------------------
+    56                                      1740     Count coming in to IF
+    56              1                         82                     if(item.reset_n == 0)
+                                            1658     All False Count
+Branch totals: 2 hits of 2 branches = 100.00%
+
+------------------------------------IF Branch------------------------------------
+    64                                      1658     Count coming in to IF
+    64              1                         86                     if(item.reset_n == 0)
+                                            1572     All False Count
+Branch totals: 2 hits of 2 branches = 100.00%
+
+------------------------------------IF Branch------------------------------------
+    72                                      1572     Count coming in to IF
+    72              1                         67                     if(item.reset_n == 0)
+                                            1505     All False Count
+Branch totals: 2 hits of 2 branches = 100.00%
+
+
+  File tinyalu_err_seq.sv
+------------------------------------IF Branch------------------------------------
+    5                                    ***0***     Count coming in to IF
+    5               1                    ***0***     `uvm_object_utils(tinyalu_err_seq)
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+------------------------------------IF Branch------------------------------------
+    5                                    ***0***     Count coming in to IF
+    5               2                    ***0***     `uvm_object_utils(tinyalu_err_seq)
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+------------------------------------IF Branch------------------------------------
+    5                                    ***0***     Count coming in to IF
+    5               3                    ***0***     `uvm_object_utils(tinyalu_err_seq)
+    5               4                    ***0***     `uvm_object_utils(tinyalu_err_seq)
+Branch totals: 0 hits of 2 branches = 0.00%
+
+------------------------------------IF Branch------------------------------------
+    5                                    ***0***     Count coming in to IF
+    5               5                    ***0***     `uvm_object_utils(tinyalu_err_seq)
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+------------------------------------IF Branch------------------------------------
+    5                                    ***0***     Count coming in to IF
+    5               6                    ***0***     `uvm_object_utils(tinyalu_err_seq)
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+------------------------------------IF Branch------------------------------------
+    14                                   ***0***     Count coming in to IF
+    14              1                    ***0***         `uvm_info(get_type_name(), "=== ERROR SEQUENCE STARTED ===", UVM_MEDIUM);
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+------------------------------------IF Branch------------------------------------
+    20                                   ***0***     Count coming in to IF
+    20              1                    ***0***                 `uvm_info(get_type_name(), 
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+
+  File tinyalu_reset_seq.sv
+------------------------------------IF Branch------------------------------------
+    5                                    ***0***     Count coming in to IF
+    5               1                    ***0***     	`uvm_object_utils(tinyalu_reset_seq)
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+------------------------------------IF Branch------------------------------------
+    5                                          1     Count coming in to IF
+    5               2                    ***0***     	`uvm_object_utils(tinyalu_reset_seq)
+                                               1     All False Count
+Branch totals: 1 hit of 2 branches = 50.00%
+
+------------------------------------IF Branch------------------------------------
+    5                                    ***0***     Count coming in to IF
+    5               3                    ***0***     	`uvm_object_utils(tinyalu_reset_seq)
+    5               4                    ***0***     	`uvm_object_utils(tinyalu_reset_seq)
+Branch totals: 0 hits of 2 branches = 0.00%
+
+------------------------------------IF Branch------------------------------------
+    5                                          1     Count coming in to IF
+    5               5                    ***0***     	`uvm_object_utils(tinyalu_reset_seq)
+                                               1     All False Count
+Branch totals: 1 hit of 2 branches = 50.00%
+
+------------------------------------IF Branch------------------------------------
+    5                                    ***0***     Count coming in to IF
+    5               6                    ***0***     	`uvm_object_utils(tinyalu_reset_seq)
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+
+  File tinyalu_err_driver.sv
+------------------------------------IF Branch------------------------------------
+    23                                   ***0***     Count coming in to IF
+    23              1                    ***0***                 if (s_item.op_stable_err) begin
+    41              1                    ***0***                 end else if (s_item.operands_stable_err) begin
+    59              1                    ***0***                 end else if (s_item.invalid_opcode) begin
+                                         ***0***     All False Count
+Branch totals: 0 hits of 4 branches = 0.00%
+
+
+  File tinyalu_scoreboard.sv
+------------------------------------IF Branch------------------------------------
+    40                                     40313     Count coming in to IF
+    40              1                      16122                 if (((seq_item_sb.op == 4 && cycle == 4) || (seq_item_sb.op != 4 && cycle == 2)) && seq_item_sb.start) begin
+                                           24191     All False Count
+Branch totals: 2 hits of 2 branches = 100.00%
+
+------------------------------------IF Branch------------------------------------
+    41                                     16122     Count coming in to IF
+    41              1                      15884                     if (result_exp == seq_item_sb.result /*&& done_exp == seq_item_sb.done*/) begin
+    44              1                        238                     else begin
+Branch totals: 2 hits of 2 branches = 100.00%
+
+------------------------------------IF Branch------------------------------------
+    54                                     40313     Count coming in to IF
+    54              1                       1972             if (~seq_item_ref.reset_n) begin
+    59              1                      29959             else if(~seq_item_ref.op[2] && seq_item_ref.start)begin
+    75              1                       6475             else if(seq_item_ref.op == 3'b100 && seq_item_ref.start) begin
+    86              1                       1907             else begin
+Branch totals: 4 hits of 4 branches = 100.00%
+
+------------------------------------IF Branch------------------------------------
+    60                                     29959     Count coming in to IF
+    60              1                      15342                 if (cycle == 0) begin
+    70              1                      14617                 else begin
+Branch totals: 2 hits of 2 branches = 100.00%
+
+------------------------------------CASE Branch------------------------------------
+    62                                     15342     Count coming in to CASE
+    63              1                       6773                         3'b001: result_exp = seq_item_ref.A + seq_item_ref.B;
+    64              1                       3526                         3'b010: result_exp = seq_item_ref.A & seq_item_ref.B;
+    65              1                       3321                         3'b011: result_exp = seq_item_ref.A ^ seq_item_ref.B;
+    66              1                       1722                         default: done_exp = 0;
+Branch totals: 4 hits of 4 branches = 100.00%
+
+------------------------------------IF Branch------------------------------------
+    76                                      6475     Count coming in to IF
+    76              1                       1572                 if (cycle == 2) begin
+    81              1                       4903                 else begin
+Branch totals: 2 hits of 2 branches = 100.00%
+
+------------------------------------IF Branch------------------------------------
+    101                                        1     Count coming in to IF
+    101             1                          1             `uvm_info("TINY_ALU_SCOREBOARD REPORT", $sformatf("total successful: %0d", correct_count), UVM_MEDIUM)
+                                         ***0***     All False Count
+Branch totals: 1 hit of 2 branches = 50.00%
+
+------------------------------------IF Branch------------------------------------
+    102                                        1     Count coming in to IF
+    102             1                          1             `uvm_info("TINY_ALU_SCOREBOARD REPORT", $sformatf("total errors: %0d", error_count), UVM_MEDIUM)
+                                         ***0***     All False Count
+Branch totals: 1 hit of 2 branches = 50.00%
+
+
+  File tinyalu_agent.sv
+------------------------------------IF Branch------------------------------------
+    24                                         1     Count coming in to IF
+    24              1                    ***0***           if(!uvm_config_db #(tinyalu_config)::get(this,"","CFG",tinyalu_cfg))
+                                               1     All False Count
+Branch totals: 1 hit of 2 branches = 50.00%
+
+------------------------------------IF Branch------------------------------------
+    25                                   ***0***     Count coming in to IF
+    25              1                    ***0***           `uvm_fatal("build_phase","unable to get configuration object")
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+
+  File tinyalu_test_base.sv
+------------------------------------IF Branch------------------------------------
+    36                                         1     Count coming in to IF
+    36              1                    ***0***     		if (!(uvm_config_db#(virtual tinyalu_if)::get(this, "", "tinyalu_if", alu_config.tinyalu_vif))) 
+                                               1     All False Count
+Branch totals: 1 hit of 2 branches = 50.00%
+
+------------------------------------IF Branch------------------------------------
+    37                                   ***0***     Count coming in to IF
+    37              1                    ***0***     			`uvm_fatal("build_phase", "unable to get vitual interface from top module");
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+------------------------------------IF Branch------------------------------------
+    49                                         1     Count coming in to IF
+    49              1                          1     		`uvm_info("run phase", "Reset Asserted", UVM_LOW);
+                                         ***0***     All False Count
+Branch totals: 1 hit of 2 branches = 50.00%
+
+------------------------------------IF Branch------------------------------------
+    51                                         1     Count coming in to IF
+    51              1                          1     		`uvm_info("run phase", "Reset Asserted", UVM_LOW);
+                                         ***0***     All False Count
+Branch totals: 1 hit of 2 branches = 50.00%
+
+------------------------------------IF Branch------------------------------------
+    53                                         1     Count coming in to IF
+    53              1                          1     		`uvm_info("run phase", "Stimulus Generation Started", UVM_LOW);
+                                         ***0***     All False Count
+Branch totals: 1 hit of 2 branches = 50.00%
+
+------------------------------------IF Branch------------------------------------
+    55                                         1     Count coming in to IF
+    55              1                          1     		`uvm_info("run phase", "Stimulus Generation Ended", UVM_LOW);
+                                         ***0***     All False Count
+Branch totals: 1 hit of 2 branches = 50.00%
+
+
+Condition Coverage:
+    Enabled Coverage              Bins   Covered    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Conditions                      28        15        13    53.57%
+
+================================Condition Details================================
+
+Condition Coverage for instance /tinyalu_pkg --
+
+  File tinyalu_config.sv
+----------------Focused Condition View-------------------
+Line       5 Item    1  (name != 0)
+Condition totals: 0 of 1 input term covered = 0.00%
+
+   Input Term   Covered  Reason for no coverage   Hint
+  -----------  --------  -----------------------  --------------
+  (name != 0)         N  No hits                  Hit '_0' and '_1'
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:    ***0***  (name != 0)_0         -                             
+  Row   2:    ***0***  (name != 0)_1         -                             
+
+----------------Focused Condition View-------------------
+Line       5 Item    2  (tmp_data__ != null)
+Condition totals: 0 of 1 input term covered = 0.00%
+
+            Input Term   Covered  Reason for no coverage   Hint
+           -----------  --------  -----------------------  --------------
+  (tmp_data__ != null)         N  No hits                  Hit '_0' and '_1'
+
+     Rows:       Hits  FEC Target              Non-masking condition(s)      
+ ---------  ---------  --------------------    -------------------------     
+  Row   1:    ***0***  (tmp_data__ != null)_0  -                             
+  Row   2:    ***0***  (tmp_data__ != null)_1  -                             
+
+
+----------------Focused Condition View-------------------
+Line       5 Item    1  (name != 0)
+Condition totals: 0 of 1 input term covered = 0.00%
+
+   Input Term   Covered  Reason for no coverage   Hint
+  -----------  --------  -----------------------  --------------
+  (name != 0)         N  No hits                  Hit '_0' and '_1'
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:    ***0***  (name != 0)_0         -                             
+  Row   2:    ***0***  (name != 0)_1         -                             
+
+----------------Focused Condition View-------------------
+Line       5 Item    2  (tmp_data__ != null)
+Condition totals: 0 of 1 input term covered = 0.00%
+
+            Input Term   Covered  Reason for no coverage   Hint
+           -----------  --------  -----------------------  --------------
+  (tmp_data__ != null)         N  '_1' not hit             Hit '_1'
+
+     Rows:       Hits  FEC Target              Non-masking condition(s)      
+ ---------  ---------  --------------------    -------------------------     
+  Row   1:          1  (tmp_data__ != null)_0  -                             
+  Row   2:    ***0***  (tmp_data__ != null)_1  -                             
+
+
+----------------Focused Condition View-------------------
+Line       5 Item    1  (name != 0)
+Condition totals: 0 of 1 input term covered = 0.00%
+
+   Input Term   Covered  Reason for no coverage   Hint
+  -----------  --------  -----------------------  --------------
+  (name != 0)         N  No hits                  Hit '_0' and '_1'
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:    ***0***  (name != 0)_0         -                             
+  Row   2:    ***0***  (name != 0)_1         -                             
+
+----------------Focused Condition View-------------------
+Line       5 Item    2  (tmp_data__ != null)
+Condition totals: 0 of 1 input term covered = 0.00%
+
+            Input Term   Covered  Reason for no coverage   Hint
+           -----------  --------  -----------------------  --------------
+  (tmp_data__ != null)         N  No hits                  Hit '_0' and '_1'
+
+     Rows:       Hits  FEC Target              Non-masking condition(s)      
+ ---------  ---------  --------------------    -------------------------     
+  Row   1:    ***0***  (tmp_data__ != null)_0  -                             
+  Row   2:    ***0***  (tmp_data__ != null)_1  -                             
+
+
+----------------Focused Condition View-------------------
+Line       5 Item    1  (name != 0)
+Condition totals: 0 of 1 input term covered = 0.00%
+
+   Input Term   Covered  Reason for no coverage   Hint
+  -----------  --------  -----------------------  --------------
+  (name != 0)         N  No hits                  Hit '_0' and '_1'
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:    ***0***  (name != 0)_0         -                             
+  Row   2:    ***0***  (name != 0)_1         -                             
+
+----------------Focused Condition View-------------------
+Line       5 Item    2  (tmp_data__ != null)
+Condition totals: 0 of 1 input term covered = 0.00%
+
+            Input Term   Covered  Reason for no coverage   Hint
+           -----------  --------  -----------------------  --------------
+  (tmp_data__ != null)         N  '_1' not hit             Hit '_1'
+
+     Rows:       Hits  FEC Target              Non-masking condition(s)      
+ ---------  ---------  --------------------    -------------------------     
+  Row   1:          1  (tmp_data__ != null)_0  -                             
+  Row   2:    ***0***  (tmp_data__ != null)_1  -                             
+
+----------------Focused Condition View-------------------
+Line       27 Item    1  ((this.item.op != 4) && this.item.start)
+Condition totals: 2 of 2 input terms covered = 100.00%
+
+           Input Term   Covered  Reason for no coverage   Hint
+          -----------  --------  -----------------------  --------------
+  (this.item.op != 4)         Y
+      this.item.start         Y
+
+     Rows:       Hits  FEC Target             Non-masking condition(s)      
+ ---------  ---------  --------------------   -------------------------     
+  Row   1:          1  (this.item.op != 4)_0  -                             
+  Row   2:          1  (this.item.op != 4)_1  this.item.start               
+  Row   3:          1  this.item.start_0      (this.item.op != 4)           
+  Row   4:          1  this.item.start_1      (this.item.op != 4)           
+
+----------------Focused Condition View-------------------
+Line       44 Item    1  ((this.item.op == 4) && this.item.start)
+Condition totals: 2 of 2 input terms covered = 100.00%
+
+           Input Term   Covered  Reason for no coverage   Hint
+          -----------  --------  -----------------------  --------------
+  (this.item.op == 4)         Y
+      this.item.start         Y
+
+     Rows:       Hits  FEC Target             Non-masking condition(s)      
+ ---------  ---------  --------------------   -------------------------     
+  Row   1:          1  (this.item.op == 4)_0  -                             
+  Row   2:          1  (this.item.op == 4)_1  this.item.start               
+  Row   3:          1  this.item.start_0      (this.item.op == 4)           
+  Row   4:          1  this.item.start_1      (this.item.op == 4)           
+
+
+----------------Focused Condition View-------------------
+Line       5 Item    1  (name != 0)
+Condition totals: 0 of 1 input term covered = 0.00%
+
+   Input Term   Covered  Reason for no coverage   Hint
+  -----------  --------  -----------------------  --------------
+  (name != 0)         N  No hits                  Hit '_0' and '_1'
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:    ***0***  (name != 0)_0         -                             
+  Row   2:    ***0***  (name != 0)_1         -                             
+
+----------------Focused Condition View-------------------
+Line       5 Item    2  (tmp_data__ != null)
+Condition totals: 0 of 1 input term covered = 0.00%
+
+            Input Term   Covered  Reason for no coverage   Hint
+           -----------  --------  -----------------------  --------------
+  (tmp_data__ != null)         N  No hits                  Hit '_0' and '_1'
+
+     Rows:       Hits  FEC Target              Non-masking condition(s)      
+ ---------  ---------  --------------------    -------------------------     
+  Row   1:    ***0***  (tmp_data__ != null)_0  -                             
+  Row   2:    ***0***  (tmp_data__ != null)_1  -                             
+
+
+----------------Focused Condition View-------------------
+Line       5 Item    1  (name != 0)
+Condition totals: 0 of 1 input term covered = 0.00%
+
+   Input Term   Covered  Reason for no coverage   Hint
+  -----------  --------  -----------------------  --------------
+  (name != 0)         N  No hits                  Hit '_0' and '_1'
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:    ***0***  (name != 0)_0         -                             
+  Row   2:    ***0***  (name != 0)_1         -                             
+
+----------------Focused Condition View-------------------
+Line       5 Item    2  (tmp_data__ != null)
+Condition totals: 0 of 1 input term covered = 0.00%
+
+            Input Term   Covered  Reason for no coverage   Hint
+           -----------  --------  -----------------------  --------------
+  (tmp_data__ != null)         N  '_1' not hit             Hit '_1'
+
+     Rows:       Hits  FEC Target              Non-masking condition(s)      
+ ---------  ---------  --------------------    -------------------------     
+  Row   1:          1  (tmp_data__ != null)_0  -                             
+  Row   2:    ***0***  (tmp_data__ != null)_1  -                             
+
+
+
+
+
+
+----------------Focused Condition View-------------------
+Line       40 Item    1  ((((this.seq_item_sb.op == 4) && (this.cycle == 4)) || ((this.seq_item_sb.op != 4) && (this.cycle == 2))) && this.seq_item_sb.start)
+Condition totals: 4 of 5 input terms covered = 80.00%
+
+                  Input Term   Covered  Reason for no coverage   Hint
+                 -----------  --------  -----------------------  --------------
+  (this.seq_item_sb.op == 4)         Y
+           (this.cycle == 4)         Y
+  (this.seq_item_sb.op != 4)         Y
+           (this.cycle == 2)         Y
+      this.seq_item_sb.start         N  '_0' not hit             Hit '_0'
+
+     Rows:       Hits  FEC Target                    Non-masking condition(s)      
+ ---------  ---------  --------------------          -------------------------     
+  Row   1:          1  (this.seq_item_sb.op == 4)_0  ~((this.seq_item_sb.op != 4) && (this.cycle == 2))
+  Row   2:          1  (this.seq_item_sb.op == 4)_1  (this.seq_item_sb.start && (this.cycle == 4))
+  Row   3:          1  (this.cycle == 4)_0           (~((this.seq_item_sb.op != 4) && (this.cycle == 2)) && (this.seq_item_sb.op == 4))
+  Row   4:          1  (this.cycle == 4)_1           (this.seq_item_sb.start && (this.seq_item_sb.op == 4))
+  Row   5:          1  (this.seq_item_sb.op != 4)_0  ~((this.seq_item_sb.op == 4) && (this.cycle == 4))
+  Row   6:          1  (this.seq_item_sb.op != 4)_1  (this.seq_item_sb.start && ~((this.seq_item_sb.op == 4) && (this.cycle == 4)) && (this.cycle == 2))
+  Row   7:          1  (this.cycle == 2)_0           (~((this.seq_item_sb.op == 4) && (this.cycle == 4)) && (this.seq_item_sb.op != 4))
+  Row   8:          1  (this.cycle == 2)_1           (this.seq_item_sb.start && ~((this.seq_item_sb.op == 4) && (this.cycle == 4)) && (this.seq_item_sb.op != 4))
+  Row   9:    ***0***  this.seq_item_sb.start_0      (((this.seq_item_sb.op == 4) && (this.cycle == 4)) || ((this.seq_item_sb.op != 4) && (this.cycle == 2)))
+ Row   10:          1  this.seq_item_sb.start_1      (((this.seq_item_sb.op == 4) && (this.cycle == 4)) || ((this.seq_item_sb.op != 4) && (this.cycle == 2)))
+
+----------------Focused Condition View-------------------
+Line       41 Item    1  (this.result_exp == this.seq_item_sb.result)
+Condition totals: 1 of 1 input term covered = 100.00%
+
+                                    Input Term   Covered  Reason for no coverage   Hint
+                                   -----------  --------  -----------------------  --------------
+  (this.result_exp == this.seq_item_sb.result)         Y
+
+     Rows:       Hits  FEC Target                                      Non-masking condition(s)      
+ ---------  ---------  --------------------                            -------------------------     
+  Row   1:          1  (this.result_exp == this.seq_item_sb.result)_0  -                             
+  Row   2:          1  (this.result_exp == this.seq_item_sb.result)_1  -                             
+
+----------------Focused Condition View-------------------
+Line       59 Item    1  (~seq_item_ref.op[2] && seq_item_ref.start)
+Condition totals: 2 of 2 input terms covered = 100.00%
+
+          Input Term   Covered  Reason for no coverage   Hint
+         -----------  --------  -----------------------  --------------
+  seq_item_ref.op[2]         Y
+  seq_item_ref.start         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  seq_item_ref.op[2]_0  seq_item_ref.start            
+  Row   2:          1  seq_item_ref.op[2]_1  -                             
+  Row   3:          1  seq_item_ref.start_0  ~seq_item_ref.op[2]           
+  Row   4:          1  seq_item_ref.start_1  ~seq_item_ref.op[2]           
+
+----------------Focused Condition View-------------------
+Line       60 Item    1  (this.cycle == 0)
+Condition totals: 1 of 1 input term covered = 100.00%
+
+         Input Term   Covered  Reason for no coverage   Hint
+        -----------  --------  -----------------------  --------------
+  (this.cycle == 0)         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  (this.cycle == 0)_0   -                             
+  Row   2:          1  (this.cycle == 0)_1   -                             
+
+----------------Focused Condition View-------------------
+Line       75 Item    1  ((seq_item_ref.op == 4) && seq_item_ref.start)
+Condition totals: 2 of 2 input terms covered = 100.00%
+
+              Input Term   Covered  Reason for no coverage   Hint
+             -----------  --------  -----------------------  --------------
+  (seq_item_ref.op == 4)         Y
+      seq_item_ref.start         Y
+
+     Rows:       Hits  FEC Target                Non-masking condition(s)      
+ ---------  ---------  --------------------      -------------------------     
+  Row   1:          1  (seq_item_ref.op == 4)_0  -                             
+  Row   2:          1  (seq_item_ref.op == 4)_1  seq_item_ref.start            
+  Row   3:          1  seq_item_ref.start_0      (seq_item_ref.op == 4)        
+  Row   4:          1  seq_item_ref.start_1      (seq_item_ref.op == 4)        
+
+----------------Focused Condition View-------------------
+Line       76 Item    1  (this.cycle == 2)
+Condition totals: 1 of 1 input term covered = 100.00%
+
+         Input Term   Covered  Reason for no coverage   Hint
+        -----------  --------  -----------------------  --------------
+  (this.cycle == 2)         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  (this.cycle == 2)_0   -                             
+  Row   2:          1  (this.cycle == 2)_1   -                             
+
+
+
+
+
+
+
+
+Covergroup Coverage:
+    Covergroups                      1        na        na   100.00%
+        Coverpoints/Crosses          6        na        na        na
+            Covergroup Bins         30        30         0   100.00%
+----------------------------------------------------------------------------------------------------------
+Covergroup                                             Metric       Goal       Bins    Status               
+                                                                                                         
+----------------------------------------------------------------------------------------------------------
+ TYPE /tinyalu_pkg/tinyalu_coverage/CovGp             100.00%        100          -    Covered              
+    covered/total bins:                                    30         30          -                      
+    missing/total bins:                                     0         30          -                      
+    % Hit:                                            100.00%        100          -                      
+    Coverpoint reset_c                                100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin disabled                                    38341          1          -    Covered              
+        bin abled                                        1972          1          -    Covered              
+    Coverpoint start_c                                100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin disabled                                      107          1          -    Covered              
+        bin abled                                        1865          1          -    Covered              
+    Coverpoint A_c                                    100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin Max                                           421          1          -    Covered              
+        bin Min                                           379          1          -    Covered              
+        default bin others                               1065                     -    Occurred             
+    Coverpoint B_c                                    100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin Max                                           349          1          -    Covered              
+        bin Min                                           395          1          -    Covered              
+        default bin others                               1121                     -    Occurred             
+    Coverpoint op_c                                   100.00%        100          -    Covered              
+        covered/total bins:                                 6          6          -                      
+        missing/total bins:                                 0          6          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin no_op                                         168          1          -    Covered              
+        bin add_op                                        689          1          -    Covered              
+        bin and_op                                        318          1          -    Covered              
+        bin xor_op                                        341          1          -    Covered              
+        bin mul_op                                        349          1          -    Covered              
+        bin unused_op                                     349          1          -    Covered              
+    Cross A_B_op_c                                    100.00%        100          -    Covered              
+        covered/total bins:                                16         16          -                      
+        missing/total bins:                                 0         16          -                      
+        % Hit:                                        100.00%        100          -                      
+        Auto, Default and User Defined Bins:
+            bin <Min,Min,mul_op>                           11          1          -    Covered              
+            bin <Max,Min,mul_op>                           13          1          -    Covered              
+            bin <Min,Max,mul_op>                           18          1          -    Covered              
+            bin <Max,Max,mul_op>                           17          1          -    Covered              
+            bin <Min,Min,xor_op>                           23          1          -    Covered              
+            bin <Max,Min,xor_op>                           11          1          -    Covered              
+            bin <Min,Max,xor_op>                            4          1          -    Covered              
+            bin <Max,Max,xor_op>                           18          1          -    Covered              
+            bin <Min,Min,and_op>                           11          1          -    Covered              
+            bin <Max,Min,and_op>                           15          1          -    Covered              
+            bin <Min,Max,and_op>                           10          1          -    Covered              
+            bin <Max,Max,and_op>                           12          1          -    Covered              
+            bin <Min,Min,add_op>                           30          1          -    Covered              
+            bin <Max,Min,add_op>                           25          1          -    Covered              
+            bin <Min,Max,add_op>                           23          1          -    Covered              
+            bin <Max,Max,add_op>                           34          1          -    Covered              
+        Illegal and Ignore Bins:
+            ignore_bin unused_operation                    59                     -    Occurred             
+            ignore_bin no_operation                        27                     -    Occurred             
+Statement Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Statements                     289       162       127    56.05%
+
+================================Statement Details================================
+
+Statement Coverage for instance /tinyalu_pkg --
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File tinyalu_config.sv
+    1                                                `ifndef TinyALU_CONFIG
+    2                                                `define TinyALU_CONFIG
+    3                                                
+    4                                                class tinyalu_config extends uvm_object;
+    5               1                    ***0***         `uvm_object_utils (tinyalu_config)
+    5               2                    ***0***     
+    5               3                    ***0***     
+    5               4                    ***0***     
+    5               5                    ***0***     
+    5               6                    ***0***     
+    5               7                    ***0***     
+    5               8                    ***0***     
+    5               9                    ***0***     
+    5              10                    ***0***     
+    6                                                
+    7                                                     virtual tinyalu_if tinyalu_vif;
+    8                                                     
+    9                                                     function new (string name ="tinyalu_config");
+    10              1                          1           super.new(name);
+
+  File tinyalu_seq_item.sv
+    1                                                `ifndef TinyALU_SEQ_ITEM
+    2                                                `define TinyALU_SEQ_ITEM
+    3                                                
+    4                                                class tinyalu_seq_item extends uvm_sequence_item;
+    5               1                    ***0***     	`uvm_object_utils(tinyalu_seq_item)
+    5               2                    ***0***     
+    5               3                    ***0***     
+    5               4                    ***0***     
+    5               5                    ***0***     
+    5               6                      40313     
+    5               7                    ***0***     
+    5               8                    ***0***     
+    5               9                      40313     
+    5              10                    ***0***     
+    6                                                
+    7                                                	rand bit [7:0] A      ;
+    8                                                	rand bit [7:0] B      ;
+    9                                                	rand bit [2:0] op     ;
+    10                                               	rand bit	   start  ;
+    11                                               	rand bit	   reset_n;
+    12                                               
+    13                                               	logic done;
+    14                                               	logic[15:0] result;
+    15                                               
+    16                                               	// variables used in error testcases
+    17                                               	rand bit [7:0] A_new ;
+    18                                               	rand bit [7:0] B_new ;
+    19                                               	rand bit [2:0] op_new;
+    20                                               
+    21                                               	// error testcases enables 
+    22                                               	rand bit op_stable_err      ;
+    23                                               	rand bit operands_stable_err;
+    24                                               	rand bit invalid_opcode     ;
+    25                                               
+    26                                               	// Constructor
+    27                                               	function new(string name = "tinyalu_seq_item");
+    28              1                      60316     		super.new(name);
+
+  File tinyalu_err_seq_item.sv
+    1                                                `ifndef TinyALU_ERR_SEQ_ITEM
+    2                                                `define TinyALU_ERR_SEQ_ITEM
+    3                                                
+    4                                                class tinyalu_err_seq_item extends tinyalu_seq_item;
+    5               1                    ***0***     	`uvm_object_utils(tinyalu_err_seq_item)
+    5               2                    ***0***     
+    5               3                    ***0***     
+    5               4                    ***0***     
+    5               5                    ***0***     
+    5               6                    ***0***     
+    5               7                    ***0***     
+    5               8                    ***0***     
+    5               9                    ***0***     
+    5              10                    ***0***     
+    6                                                	
+    7                                                	function new(string name = "tinyalu_err_seq_item");
+    8               1                    ***0***     		super.new(name);
+
+  File tinyalu_main_seq.sv
+    1                                                `ifndef TinyALU_MAIN_SEQ
+    2                                                `define TinyALU_MAIN_SEQ
+    3                                                
+    4                                                class tinyalu_main_seq extends uvm_sequence#(tinyalu_seq_item); 
+    5               1                    ***0***         `uvm_object_utils(tinyalu_main_seq)
+    5               2                    ***0***     
+    5               3                    ***0***     
+    5               4                    ***0***     
+    5               5                    ***0***     
+    5               6                          1     
+    5               7                    ***0***     
+    5               8                    ***0***     
+    5               9                          1     
+    5              10                    ***0***     
+    6                                                
+    7                                                    tinyalu_seq_item item;
+    8                                                    // Saved values for multiplication operation
+    9                                                    bit [7:0] A_1_new    ;
+    10                                                   bit [7:0] B_1_new    ;
+    11                                                   bit [2:0] op_1_new   ;
+    12                                                   bit       start_1_new;
+    13                                               
+    14                                                   function new(string name = "tinyalu_main_seq");
+    15              1                          1             super.new(name);
+    16                                                   endfunction : new
+    17                                               
+    18                                                   virtual task body();
+    19              1                          1             for (int i = 0; i < 20000; i++) begin
+    19              2                      20000     
+    20              1                      20000                 item = tinyalu_seq_item::type_id::create("item");
+    21                                                           //  Cycle 1: randomize and send the item
+    22              1                      20000                 start_item(item);
+    23                                                           assert(item.randomize());
+    24              1                      20000                 finish_item(item);
+    25                                                           if(item.reset_n == 0)
+    26              1                       1011                 continue;
+    27                                                           if ((item.op != 4) && (item.start == 1)) begin
+    28              1                      15342                     A_1_new     = item.A;
+    29              1                      15342                     B_1_new     = item.B;
+    30              1                      15342                     op_1_new    = item.op;
+    31              1                      15342                     start_1_new = item.start;
+    32                                                               //`uvm_info("UVM_MULT_TRANSACTION",$sformatf("A_new: %0d, B_new: %0d, op_new: %0d, start_new: %0d", A_1_new, B_1_new, op_1_new, start_1_new), UVM_LOW) 
+    33              1                      15342                     start_item(item);
+    34                                                               assert(item.randomize() with {A == A_1_new; B == B_1_new; op == op_1_new; start == start_1_new;});
+    35                                                              // `uvm_info("UVM_MULT_TRANSACTION",$sformatf("A_new: %0d, B_new: %0d, op_new: %0d, start_new: %0d", item.A, item.B, item.op, item.start), UVM_LOW)
+    36              1                      15342                     finish_item(item);
+    37                                                               if(item.reset_n == 0)
+    38              1                        725                         continue;
+    39                                                               end
+    40                                                           // If the operation is a multiplication (op=4, start=1),
+    41                                                           // the TinyALU requires inputs to stay stable
+    42                                                           // for 3 cycles. So we repeat 2 more cycles
+    43                                                           // with the same A, B, op, and start values.
+    44                                                          else if ((item.op == 4) && (item.start == 1)) begin
+    45              1                       1740                     A_1_new     = item.A;
+    46              1                       1740                     B_1_new     = item.B;
+    47              1                       1740                     op_1_new    = item.op;
+    48              1                       1740                     start_1_new = item.start;
+    49                                                              // `uvm_info("UVM_MULT_TRANSACTION",$sformatf("A_new: %0d, B_new: %0d, op_new: %0d, start_new: %0d", A_1_new, B_1_new, op_1_new, start_1_new), UVM_LOW)
+    50                                               
+    51                                                               // Cycle 2: force the oprations and operands to be stable
+    52              1                       1740                     start_item(item);
+    53                                                               assert(item.randomize() with {A == A_1_new; B == B_1_new; op == op_1_new; start == start_1_new;});
+    54                                                              // `uvm_info("UVM_MULT_TRANSACTION",$sformatf("A_new: %0d, B_new: %0d, op_new: %0d, start_new: %0d", item.A, item.B, item.op, item.start), UVM_LOW)
+    55              1                       1740                     finish_item(item);
+    56                                                               if(item.reset_n == 0)
+    57              1                         82                         continue;
+    58                                               
+    59                                                               // Cycle 3: force the oprations and operands to be stable
+    60              1                       1658                     start_item(item);
+    61                                                               assert(item.randomize() with {A == A_1_new; B == B_1_new; op == op_1_new; start == start_1_new;});
+    62                                                               //`uvm_info("UVM_MULT_TRANSACTION",$sformatf("A_new: %0d, B_new: %0d, op_new: %0d, start_new: %0d", item.A, item.B, item.op, item.start), UVM_LOW)
+    63              1                       1658                     finish_item(item);
+    64                                                               if(item.reset_n == 0)
+    65              1                         86                         continue;
+    66                                               
+    67                                                               // Cycle 4: force the oprations and operands to be stable
+    68              1                       1572                     start_item(item);
+    69                                                               assert(item.randomize() with {A == A_1_new; B == B_1_new; op == op_1_new; start == start_1_new;});
+    70                                                               //`uvm_info("UVM_MULT_TRANSACTION",$sformatf("A_new: %0d, B_new: %0d, op_new: %0d, start_new: %0d", item.A, item.B, item.op, item.start), UVM_LOW)
+    71              1                       1572                     finish_item(item);
+    72                                                               if(item.reset_n == 0)
+    73              1                         67                         continue;
+
+  File tinyalu_err_seq.sv
+    1                                                `ifndef TinyALU_ERR_SEQ
+    2                                                `define TinyALU_ERR_SEQ
+    3                                                
+    4                                                class tinyalu_err_seq extends tinyalu_main_seq;
+    5               1                    ***0***     `uvm_object_utils(tinyalu_err_seq)
+    5               2                    ***0***     
+    5               3                    ***0***     
+    5               4                    ***0***     
+    5               5                    ***0***     
+    5               6                    ***0***     
+    5               7                    ***0***     
+    5               8                    ***0***     
+    5               9                    ***0***     
+    5              10                    ***0***     
+    6                                                
+    7                                                    tinyalu_seq_item e_item;
+    8                                                
+    9                                                    function new(string name = "tinyalu_err_seq");
+    10              1                    ***0***             super.new(name);
+    11                                                   endfunction //new()
+    12                                               
+    13                                                   virtual task body();
+    14              1                    ***0***         `uvm_info(get_type_name(), "=== ERROR SEQUENCE STARTED ===", UVM_MEDIUM);
+    15              1                    ***0***             for (int i = 0; i < 1000; i++) begin
+    15              2                    ***0***     
+    16              1                    ***0***                 e_item = tinyalu_seq_item::type_id::create("e_item");
+    17              1                    ***0***                 start_item(e_item);
+    18                                                           assert(e_item.randomize());
+    19                                                           // Debug: print the error type and opcode
+    20              1                    ***0***                 `uvm_info(get_type_name(), 
+    21                                                               $sformatf("Item %0d: op=%0d, op_stable_err=%0b, operands_stable_err=%0b, invalid_opcode=%0b",
+    22                                                                   i, e_item.op, e_item.op_stable_err, e_item.operands_stable_err, e_item.invalid_opcode), 
+    23                                                               UVM_MEDIUM)
+    24              1                    ***0***                 finish_item(e_item);
+
+  File tinyalu_reset_seq.sv
+    1                                                `ifndef TinyALU_RESET_SEQ
+    2                                                `define TinyALU_RESET_SEQ
+    3                                                
+    4                                                class tinyalu_reset_seq extends uvm_sequence #(tinyalu_seq_item);
+    5               1                    ***0***     	`uvm_object_utils(tinyalu_reset_seq)
+    5               2                    ***0***     
+    5               3                    ***0***     
+    5               4                    ***0***     
+    5               5                    ***0***     
+    5               6                          1     
+    5               7                    ***0***     
+    5               8                    ***0***     
+    5               9                          1     
+    5              10                    ***0***     
+    6                                                
+    7                                                	tinyalu_seq_item seq_item;
+    8                                                	
+    9                                                	function new(string name = "tinyalu_reset_seq");
+    10              1                          1     		super.new(name);
+    11                                               	endfunction 
+    12                                               
+    13                                               	task body();
+    14              1                          1     		seq_item = tinyalu_seq_item::type_id::create("seq_item");
+    15              1                          1     		start_item(seq_item);
+    16                                               		assert (seq_item.randomize());
+    17              1                          1     		seq_item.reset_n = 0;
+    18              1                          1     		finish_item(seq_item);
+
+  File tinyalu_sequencer.sv
+    1                                                `ifndef TinyALU_SEQUENCER
+    2                                                `define TinyALU_SEQUENCER
+    3                                                
+    4                                                class tinyalu_sequencer extends uvm_sequencer #(tinyalu_seq_item);
+    5               1                    ***0***         `uvm_component_utils(tinyalu_sequencer)
+    5               2                    ***0***     
+    5               3                          3     
+    6                                                    function new(string name = "tinyalu_sequencer", uvm_component parent = null);
+    7               1                          1             super.new(name,parent);
+
+  File tinyalu_driver.sv
+    1                                                `ifndef TinyALU_DRIVER
+    2                                                `define TinyALU_DRIVER
+    3                                                
+    4                                                class tinyalu_driver extends uvm_driver #(tinyalu_seq_item);
+    5               1                    ***0***         `uvm_component_utils(tinyalu_driver)
+    5               2                    ***0***     
+    5               3                          3     
+    6                                                
+    7                                                    virtual tinyalu_if tinyalu_vif;
+    8                                                    tinyalu_seq_item   s_item     ;
+    9                                                
+    10                                                   function new(string name = "tinyalu_driver", uvm_component parent = null);
+    11              1                          1             super.new(name, parent);
+    12                                                   endfunction //new()
+    13                                               
+    14                                                   virtual function void build_phase (uvm_phase phase);
+    15              1                          1             super.build_phase(phase);
+    16                                                   endfunction
+    17                                               
+    18                                               
+    19                                                   virtual task run_phase(uvm_phase phase);
+    20              1                          1             super.run_phase(phase);
+    21              1                          1             s_item = tinyalu_seq_item::type_id::create("s_item", this);
+    22              1                          1             forever begin
+    23              1                      40314                 seq_item_port.get_next_item(s_item);
+    24              1                      40313                 tinyalu_vif.A       = s_item.A;
+    25              1                      40313                 tinyalu_vif.B       = s_item.B;
+    26              1                      40313                 tinyalu_vif.op      = s_item.op;
+    27              1                      40313                 tinyalu_vif.start   = s_item.start;
+    28              1                      40313                 tinyalu_vif.reset_n = s_item.reset_n;
+    29              1                      40313                 @(tinyalu_vif.cb);
+    30              1                      40313                 seq_item_port.item_done();
+
+  File tinyalu_err_driver.sv
+    1                                                `ifndef TinyALU_ERR_DRIVER
+    2                                                `define TinyALU_ERR_DRIVER
+    3                                                
+    4                                                class tinyalu_err_driver extends tinyalu_driver;
+    5               1                    ***0***         `uvm_component_utils(tinyalu_err_driver)
+    5               2                    ***0***     
+    5               3                    ***0***     
+    6                                                
+    7                                                    virtual tinyalu_if tinyalu_vif;
+    8                                                    tinyalu_seq_item   s_item     ;
+    9                                                
+    10                                                   function new(string name = "tinyalu_err_driver", uvm_component parent = null);
+    11              1                    ***0***             super.new(name, parent);
+    12                                                   endfunction //new()
+    13                                               
+    14                                                   virtual function void build_phase (uvm_phase phase);
+    15              1                    ***0***             super.build_phase(phase);
+    16                                                   endfunction
+    17                                               
+    18                                                   virtual task run_phase(uvm_phase phase);
+    19              1                    ***0***             super.run_phase(phase);
+    20              1                    ***0***             s_item = tinyalu_seq_item::type_id::create("s_item");
+    21              1                    ***0***             forever begin
+    22              1                    ***0***                 seq_item_port.get_next_item(s_item);
+    23                                                           if (s_item.op_stable_err) begin
+    24                                                       
+    25                                                               // ===== 1: drive values =====
+    26              1                    ***0***                     @(tinyalu_vif.cb);
+    27              1                    ***0***                     tinyalu_vif.A      <= s_item.A;
+    28              1                    ***0***                     tinyalu_vif.B      <= s_item.B;
+    29              1                    ***0***                     tinyalu_vif.op <= s_item.op;
+    30              1                    ***0***                     tinyalu_vif.start  <= s_item.start;
+    31              1                    ***0***                     tinyalu_vif.reset_n<= s_item.reset_n;
+    32                                               
+    33                                                               // ===== 2: change only the opcode =====
+    34              1                    ***0***                     @(tinyalu_vif.cb);
+    35              1                    ***0***                     tinyalu_vif.A      <= s_item.A;      // stable
+    36              1                    ***0***                     tinyalu_vif.B      <= s_item.B;      // stable
+    37              1                    ***0***                     tinyalu_vif.op <= s_item.op_new; // ERROR INJECTION
+    38              1                    ***0***                     tinyalu_vif.start  <= s_item.start;
+    39              1                    ***0***                     tinyalu_vif.reset_n<= s_item.reset_n;
+    40                                               
+    41                                                           end else if (s_item.operands_stable_err) begin
+    42                                                                   
+    43                                                               // ===== 1: drive values =====
+    44              1                    ***0***                     @(tinyalu_vif.cb);
+    45              1                    ***0***                     tinyalu_vif.A      <= s_item.A;
+    46              1                    ***0***                     tinyalu_vif.B      <= s_item.B;
+    47              1                    ***0***                     tinyalu_vif.op <= s_item.op;
+    48              1                    ***0***                     tinyalu_vif.start  <= s_item.start;
+    49              1                    ***0***                     tinyalu_vif.reset_n<= s_item.reset_n;
+    50                                               
+    51                                                               // ===== 2: change A & B only =====
+    52              1                    ***0***                     @(tinyalu_vif.cb);
+    53              1                    ***0***                     tinyalu_vif.A      <= s_item.A;      // ERROR INJECTION
+    54              1                    ***0***                     tinyalu_vif.B      <= s_item.B;      // ERROR INJECTION
+    55              1                    ***0***                     tinyalu_vif.op <= s_item.op_new; // stable
+    56              1                    ***0***                     tinyalu_vif.start  <= s_item.start;
+    57              1                    ***0***                     tinyalu_vif.reset_n<= s_item.reset_n;
+    58                                               
+    59                                                           end else if (s_item.invalid_opcode) begin
+    60                                                                   
+    61              1                    ***0***                     @(posedge tinyalu_vif.clk);
+    62              1                    ***0***                     tinyalu_vif.A      <= s_item.A;
+    63              1                    ***0***                     tinyalu_vif.B      <= s_item.B;
+    64              1                    ***0***                     tinyalu_vif.op <= s_item.op_new; // invalid opcode
+    65                                               
+    66                                                           end
+    67              1                    ***0***                 seq_item_port.item_done();
+
+  File tinyalu_monitor.sv
+    1                                                `ifndef TinyALU_MONITOR
+    2                                                `define TinyALU_MONITOR
+    3                                                
+    4                                                class tinyalu_monitor extends uvm_monitor;
+    5                                                /*-------------------------------------------------------------------------------
+    6                                                -- UVM Factory register
+    7                                                -------------------------------------------------------------------------------*/
+    8                                                	// Provide implementations of virtual methods such as get_type_name and create
+    9               1                    ***0***     	`uvm_component_utils(tinyalu_monitor)
+    9               2                    ***0***     
+    9               3                          3     
+    10                                               
+    11                                               /*-------------------------------------------------------------------------------
+    12                                               -- Interface, port, fields
+    13                                               -------------------------------------------------------------------------------*/
+    14                                               	virtual tinyalu_if tinyalu_vif; ////////////////////////////////////
+    15                                               	tinyalu_seq_item rsp_seq_item;//////////////////////////////////
+    16                                               	uvm_analysis_port #(tinyalu_seq_item) mon_ap;////////////////////
+    17                                               
+    18                                               /*-------------------------------------------------------------------------------
+    19                                               -- Functions
+    20                                               -------------------------------------------------------------------------------*/
+    21                                               	// Constructor
+    22                                               	function new(string name = "tinyalu_monitor", uvm_component parent=null);
+    23              1                          1     		super.new(name, parent);
+    24                                               	endfunction : new
+    25                                               
+    26                                               	function void build_phase(uvm_phase phase);
+    27              1                          1     		super.build_phase(phase);
+    28              1                          1     		mon_ap=new("mon_ap", this);
+    29                                               	endfunction : build_phase
+    30                                               
+    31                                               	task run_phase(uvm_phase phase);	//check the names for vif & seq_item & variables
+    32              1                          1     		super.run_phase(phase);
+    33              1                          1     		forever begin
+    34              1                      40314     			rsp_seq_item=tinyalu_seq_item::type_id::create("rsp_seq_item");
+    35              1                      40314                 @(tinyalu_vif.cb);
+    36              1                      40313     			rsp_seq_item.A=tinyalu_vif.A;
+    37              1                      40313     			rsp_seq_item.B=tinyalu_vif.B;
+    38              1                      40313     			rsp_seq_item.op=tinyalu_vif.op;
+    39              1                      40313     			rsp_seq_item.reset_n=tinyalu_vif.reset_n;
+    40              1                      40313     			rsp_seq_item.start=tinyalu_vif.start;
+    41              1                      40313     			rsp_seq_item.done=tinyalu_vif.done;
+    42              1                      40313     			rsp_seq_item.result=tinyalu_vif.result;
+    43              1                      40313     			mon_ap.write(rsp_seq_item);
+
+  File tinyalu_scoreboard.sv
+    1                                                `ifndef TinyALU_SCOREBOARD
+    2                                                `define TinyALU_SCOREBOARD
+    3                                                
+    4                                                class tinyalu_scoreboard extends uvm_scoreboard;
+    5                                                
+    6                                                    // register component in factory 
+    7               1                    ***0***         `uvm_component_utils(tinyalu_scoreboard)
+    7               2                    ***0***     
+    7               3                          3     
+    8                                                
+    9                                                    // create a TLM Analysis Port to receive data objects
+    10                                                   uvm_analysis_export #(tinyalu_seq_item) sb_imp;
+    11                                                   uvm_tlm_analysis_fifo #(tinyalu_seq_item) sb_fifo;
+    12                                                   tinyalu_seq_item seq_item_sb;
+    13                                               
+    14                                                   logic [15:0] result_exp;
+    15                                                   logic done_exp;
+    16                                               
+    17                                                   // create error and correct counters
+    18              1                          1         int error_count = 0;
+    19              1                          1         int correct_count = 0;
+    20              1                          1         int cycle = 0;
+    21                                               
+    22                                               
+    23                                                   function new(string name = "tinyalu_scoreboard", uvm_component parent = null);
+    24              1                          1             super.new(name,parent);
+    25                                                   endfunction //new()
+    26                                               
+    27                                                   // build phase of scoreboard
+    28                                                   virtual function void build_phase(uvm_phase phase);
+    29              1                          1             super.build_phase(phase);
+    30              1                          1             sb_fifo = new("sb_fifo", this);
+    31              1                          1             sb_imp = new("sb_imp", this);
+    32                                                   endfunction
+    33                                               
+    34                                                   // run phase of scoreboard
+    35                                                   task run_phase (uvm_phase phase);
+    36              1                          1             super.run_phase(phase);
+    37              1                          1             forever begin
+    38              1                      40314                 sb_fifo.get(seq_item_sb);
+    39              1                      40313                 ref_model(seq_item_sb);
+    40                                                           if (((seq_item_sb.op == 4 && cycle == 4) || (seq_item_sb.op != 4 && cycle == 2)) && seq_item_sb.start) begin
+    41                                                               if (result_exp == seq_item_sb.result /*&& done_exp == seq_item_sb.done*/) begin
+    42              1                      15884                         correct_count++;
+    43                                                               end
+    44                                                               else begin
+    45              1                        238                         error_count++;
+    46                                                               end
+    47              1                      16122                     cycle = 0;
+    48                                                           end
+    49                                                       end
+    50                                                   endtask 
+    51                                               
+    52                                                   // golden model
+    53                                                   task ref_model(tinyalu_seq_item seq_item_ref);
+    54                                                       if (~seq_item_ref.reset_n) begin
+    55              1                       1972                 result_exp = 1'b0;
+    56              1                       1972                 cycle = 0;
+    57              1                       1972                 done_exp = 0;
+    58                                                       end
+    59                                                       else if(~seq_item_ref.op[2] && seq_item_ref.start)begin
+    60                                                           if (cycle == 0) begin
+    61              1                      15342                     done_exp = 1;
+    62                                                               case (seq_item_ref.op)
+    63              1                       6773                         3'b001: result_exp = seq_item_ref.A + seq_item_ref.B;
+    64              1                       3526                         3'b010: result_exp = seq_item_ref.A & seq_item_ref.B;
+    65              1                       3321                         3'b011: result_exp = seq_item_ref.A ^ seq_item_ref.B;
+    66              1                       1722                         default: done_exp = 0;
+    67                                                               endcase
+    68              1                      15342                     cycle++;
+    69                                                           end
+    70                                                           else begin
+    71              1                      14617                     cycle++;
+    72              1                      14617                     done_exp = 0;
+    73                                                           end
+    74                                                       end
+    75                                                       else if(seq_item_ref.op == 3'b100 && seq_item_ref.start) begin
+    76                                                           if (cycle == 2) begin
+    77              1                       1572                     result_exp = seq_item_ref.A * seq_item_ref.B;
+    78              1                       1572                     done_exp = 1;
+    79              1                       1572                     cycle++;
+    80                                                           end
+    81                                                           else begin
+    82              1                       4903                     cycle++;
+    83              1                       4903                     done_exp = 0;
+    84                                                           end
+    85                                                       end
+    86                                                       else begin
+    87              1                       1907                 done_exp = 0;
+    88              1                       1907                 cycle = 0;
+    89                                                       end
+    90                                                   endtask 
+    91                                               
+    92                                                   // connenct phase of scoreboard
+    93                                                   function void connect_phase(uvm_phase phase);
+    94              1                          1             super.connect_phase(phase);
+    95              1                          1             sb_imp.connect(sb_fifo.analysis_export);
+    96                                                   endfunction
+    97                                               
+    98                                                   // report phase of scoreboard
+    99                                                   function void report_phase(uvm_phase phase);
+    100             1                          1             super.report_phase(phase);
+    101             1                          1             `uvm_info("TINY_ALU_SCOREBOARD REPORT", $sformatf("total successful: %0d", correct_count), UVM_MEDIUM)
+    102             1                          1             `uvm_info("TINY_ALU_SCOREBOARD REPORT", $sformatf("total errors: %0d", error_count), UVM_MEDIUM)
+
+  File tinyalu_agent.sv
+    1                                                `ifndef TinyALU_AGENT
+    2                                                `define TinyALU_AGENT
+    3                                                
+    4                                                class tinyalu_agent extends uvm_agent;
+    5               1                    ***0***       `uvm_component_utils(tinyalu_agent)
+    5               2                    ***0***     
+    5               3                          3     
+    6                                                
+    7                                                  tinyalu_sequencer sqr;
+    8                                                  tinyalu_driver drv;
+    9                                                  tinyalu_monitor mon;
+    10                                                 tinyalu_config tinyalu_cfg;
+    11                                               
+    12                                                 virtual tinyalu_if tinyalu_vif;
+    13                                               
+    14                                                 uvm_analysis_port #(tinyalu_seq_item) agt_ap;
+    15                                               
+    16                                                 function new(string name="tinyalu_agent", uvm_component parent=null);
+    17              1                          1         super.new(name,parent);
+    18                                                 endfunction
+    19                                               
+    20                                                 function void build_phase(uvm_phase phase);
+    21              1                          1         super.build_phase(phase);
+    22                                               
+    23                                                   // Get interface 
+    24                                                     if(!uvm_config_db #(tinyalu_config)::get(this,"","CFG",tinyalu_cfg))
+    25              1                    ***0***           `uvm_fatal("build_phase","unable to get configuration object")
+    26                                               
+    27              1                          1         sqr = tinyalu_sequencer::type_id::create("sqr", this);
+    28              1                          1         drv = tinyalu_driver::type_id::create("drv", this);
+    29              1                          1         mon = tinyalu_monitor::type_id::create("mon", this);
+    30                                                 
+    31              1                          1         agt_ap = new("agt_ap", this);
+    32                                                 endfunction
+    33                                               
+    34                                                 function void connect_phase(uvm_phase phase);
+    35              1                          1         drv.tinyalu_vif=tinyalu_cfg.tinyalu_vif;
+    36              1                          1         mon.tinyalu_vif=tinyalu_cfg.tinyalu_vif;
+    37              1                          1         drv.seq_item_port.connect(sqr.seq_item_export); //sqr.seqitem_imp
+    38              1                          1         mon.mon_ap.connect(agt_ap);
+
+  File tinyalu_coverage.sv
+    1                                                `ifndef TinyALU_COVERAGE
+    2                                                `define TinyALU_COVERAGE
+    3                                                
+    4                                                class tinyalu_coverage extends  uvm_component;
+    5                                                /*-------------------------------------------------------------------------------
+    6                                                -- UVM Factory register
+    7                                                -------------------------------------------------------------------------------*/
+    8                                                	// Provide implementations of virtual methods such as get_type_name and create
+    9               1                    ***0***     	`uvm_component_utils(tinyalu_coverage)
+    9               2                    ***0***     
+    9               3                          3     
+    10                                               
+    11                                               /*-------------------------------------------------------------------------------
+    12                                               -- Interface, port, fields
+    13                                               -------------------------------------------------------------------------------*/
+    14                                               	uvm_analysis_export #(tinyalu_seq_item) cov_export;		//check seq_item name
+    15                                               	uvm_tlm_analysis_fifo #(tinyalu_seq_item) cov_fifo;
+    16                                               	tinyalu_seq_item seq_item_cov;
+    17                                               
+    18                                               	covergroup CovGp ();
+    19                                               		reset_c : coverpoint seq_item_cov.reset_n{
+    20                                               			bins disabled = {1};
+    21                                               			bins abled = {0};
+    22                                               		}
+    23                                               		start_c : coverpoint seq_item_cov.start iff(!seq_item_cov.reset_n){
+    24                                               			bins disabled = {0};
+    25                                               			bins abled = {1};
+    26                                               		}
+    27                                               		A_c : coverpoint seq_item_cov.A iff(!seq_item_cov.reset_n&&seq_item_cov.start){
+    28                                               			bins Max = {8'b1111_1111};
+    29                                               			bins Min = {8'b0000_0000};
+    30                                               			bins others = default;
+    31                                               		}
+    32                                               		B_c : coverpoint seq_item_cov.B iff(!seq_item_cov.reset_n&&seq_item_cov.start){
+    33                                               			bins Max = {8'b1111_1111};
+    34                                               			bins Min = {8'b0000_0000};
+    35                                               			bins others = default;
+    36                                               		}
+    37                                               		op_c : coverpoint seq_item_cov.op iff(!seq_item_cov.reset_n&&seq_item_cov.start){
+    38                                               			bins no_op = {3'b000};
+    39                                               			bins add_op = {3'b001};
+    40                                               			bins and_op = {3'b010};
+    41                                               			bins xor_op = {3'b011};
+    42                                               			bins mul_op = {3'b100};
+    43                                               			bins unused_op = {[3'b100:3'b111]};
+    44                                               		}
+    45                                               		A_B_op_c : cross A_c, B_c, op_c iff(!seq_item_cov.reset_n&&seq_item_cov.start){
+    46                                               			ignore_bins no_operation = binsof(op_c.no_op);
+    47                                               			ignore_bins unused_operation = binsof(op_c.unused_op);
+    48                                               		}
+    49                                               
+    50                                               		endgroup : CovGp
+    51                                               
+    52                                               /*-------------------------------------------------------------------------------
+    53                                               -- Functions
+    54                                               -------------------------------------------------------------------------------*/
+    55                                               	// Constructor
+    56                                               	function new(string name = "tinyalu_coverage", uvm_component parent=null);
+    57              1                          1     		super.new(name, parent);
+    58              1                          1     		CovGp=new();
+    59                                               	endfunction : new
+    60                                               
+    61                                               	function void build_phase(uvm_phase phase);
+    62              1                          1     		super.build_phase(phase);
+    63              1                          1     		cov_export=new("cov_export",this);
+    64              1                          1     		cov_fifo=new("cov_fifo",this);
+    65                                               	endfunction : build_phase
+    66                                               
+    67                                               	function void connect_phase(uvm_phase phase);
+    68              1                          1     		super.connect_phase(phase);
+    69              1                          1     		cov_export.connect(cov_fifo.analysis_export);
+    70                                               	endfunction : connect_phase
+    71                                               
+    72                                               	task run_phase(uvm_phase phase);
+    73              1                          1     		super.run_phase(phase);
+    74              1                          1     		forever begin
+    75              1                      40314     			cov_fifo.get(seq_item_cov);
+    76              1                      40313     			CovGp.sample();
+
+  File tinyalu_env.sv
+    1                                                `ifndef TinyALU_ENV
+    2                                                `define TinyALU_ENV
+    3                                                
+    4                                                class tinyalu_env extends  uvm_env;
+    5                                                
+    6                                                /*-------------------------------------------------------------------------------
+    7                                                -- Interface, port, fields
+    8                                                -------------------------------------------------------------------------------*/
+    9                                                	
+    10                                               
+    11                                               /*-------------------------------------------------------------------------------
+    12                                               -- UVM Factory register
+    13                                               -------------------------------------------------------------------------------*/
+    14                                               	// Provide implementations of virtual methods such as get_type_name and create
+    15              1                    ***0***     	`uvm_component_utils(tinyalu_env)
+    15              2                    ***0***     
+    15              3                          3     
+    16                                               	tinyalu_agent agent;
+    17                                               	tinyalu_scoreboard scoreboard;
+    18                                               	tinyalu_coverage coverage;
+    19                                               
+    20                                               /*-------------------------------------------------------------------------------
+    21                                               -- Functions
+    22                                               -------------------------------------------------------------------------------*/
+    23                                               	// Constructor
+    24                                               	function new(string name = "tinyalu_env", uvm_component parent=null);
+    25              1                          1     		super.new(name, parent);
+    26                                               	endfunction : new
+    27                                               
+    28                                               	function void build_phase(uvm_phase phase);
+    29              1                          1     		super.build_phase(phase);
+    30              1                          1     		agent = tinyalu_agent::type_id::create("agent", this);
+    31              1                          1     		scoreboard = tinyalu_scoreboard::type_id::create("scoreboard", this);
+    32              1                          1     		coverage = tinyalu_coverage::type_id::create("coverage", this);
+    33                                               	endfunction : build_phase
+    34                                               
+    35                                               	function void connect_phase(uvm_phase phase);
+    36              1                          1     		super.connect_phase(phase);
+    37              1                          1     		agent.agt_ap.connect(coverage.cov_export);
+    38              1                          1     		agent.agt_ap.connect(scoreboard.sb_imp);
+
+  File tinyalu_test_base.sv
+    1                                                `ifndef TinyALU_TEST_BASE
+    2                                                `define TinyALU_TEST_BASE
+    3                                                
+    4                                                class tinyalu_test_base extends  uvm_test;
+    5                                                
+    6                                                /*-------------------------------------------------------------------------------
+    7                                                -- Interface, port, fields
+    8                                                -------------------------------------------------------------------------------*/
+    9                                                	
+    10                                               
+    11                                               /*-------------------------------------------------------------------------------
+    12                                               -- UVM Factory register
+    13                                               -------------------------------------------------------------------------------*/
+    14                                               	// Provide implementations of virtual methods such as get_type_name and create
+    15              1                    ***0***     	`uvm_component_utils(tinyalu_test_base)
+    15              2                    ***0***     
+    15              3                          5     
+    16                                               	tinyalu_config alu_config;
+    17                                               	tinyalu_env env;
+    18                                               	tinyalu_main_seq main_seq;
+    19                                               	tinyalu_reset_seq reset_seq;
+    20                                               
+    21                                               /*-------------------------------------------------------------------------------
+    22                                               -- Functions
+    23                                               -------------------------------------------------------------------------------*/
+    24                                               	// Constructor
+    25                                               	function new(string name = "tinyalu_test_base", uvm_component parent=null);
+    26              1                          1     		super.new(name, parent);
+    27                                               	endfunction : new
+    28                                               
+    29                                               	function void build_phase(uvm_phase phase);
+    30              1                          1     		super.build_phase(phase);
+    31              1                          1     		alu_config = tinyalu_config::type_id::create("alu_config");
+    32                                               		// main_seq = tinyalu_main_seq::type_id::create("main_seq");
+    33                                               		// reset_seq = tinyalu_reset_seq::type_id::create("reset_seq");
+    34              1                          1     		env = tinyalu_env::type_id::create("env", this);
+    35                                               
+    36                                               		if (!(uvm_config_db#(virtual tinyalu_if)::get(this, "", "tinyalu_if", alu_config.tinyalu_vif))) 
+    37              1                    ***0***     			`uvm_fatal("build_phase", "unable to get vitual interface from top module");
+    38              1                          1     		uvm_config_db#(tinyalu_config)::set(this, "*", "CFG", alu_config);
+    39                                               	endfunction : build_phase
+    40                                               
+    41                                               
+    42                                               	task run_phase(uvm_phase phase);
+    43              1                          1     		super.run_phase(phase);
+    44              1                          1     		phase.raise_objection(this);
+    45                                               
+    46              1                          1     		main_seq = tinyalu_main_seq::type_id::create("main_seq");
+    47              1                          1     		reset_seq = tinyalu_reset_seq::type_id::create("reset_seq");
+    48                                               
+    49              1                          1     		`uvm_info("run phase", "Reset Asserted", UVM_LOW);
+    50              1                          1     		reset_seq.start(env.agent.sqr);
+    51              1                          1     		`uvm_info("run phase", "Reset Asserted", UVM_LOW);
+    52                                               
+    53              1                          1     		`uvm_info("run phase", "Stimulus Generation Started", UVM_LOW);
+    54              1                          1     		main_seq.start(env.agent.sqr);
+    55              1                          1     		`uvm_info("run phase", "Stimulus Generation Ended", UVM_LOW);
+    56                                               
+    57              1                          1     		phase.drop_objection(this);
+    58                                               	endtask : run_phase
+    59                                               
+    60                                               	function void final_phase(uvm_phase phase);
+    61              1                          1     		super.final_phase(phase);
+    62              1                          1     		uvm_root::get().print_topology();
+    63              1                          1     		uvm_factory::get().print();
+
+  File tinyalu_test_err.sv
+    1                                                `ifndef TinyALU_TEST_ERR
+    2                                                `define TinyALU_TEST_ERR
+    3                                                
+    4                                                class tinyalu_test_err extends tinyalu_test_base;
+    5               1                    ***0***         `uvm_component_utils(tinyalu_test_err)
+    5               2                    ***0***     
+    5               3                    ***0***     
+    6                                                
+    7                                                    function new(string name = "tinyalu_test_err", uvm_component parent = null);
+    8               1                    ***0***             super.new(name, parent);
+    9                                                    endfunction //new()
+    10                                               
+    11                                                   function void build_phase(uvm_phase phase);
+    12              1                    ***0***             super.build_phase(phase);
+    13              1                    ***0***             set_type_override_by_type(tinyalu_main_seq::get_type(), tinyalu_err_seq::get_type());
+    14              1                    ***0***             set_type_override_by_type(tinyalu_driver::get_type(), tinyalu_err_driver::get_type());
+    15              1                    ***0***             set_type_override_by_type(tinyalu_seq_item::get_type(), tinyalu_err_seq_item::get_type());
+
+
+COVERGROUP COVERAGE:
+----------------------------------------------------------------------------------------------------------
+Covergroup                                             Metric       Goal       Bins    Status               
+                                                                                                         
+----------------------------------------------------------------------------------------------------------
+ TYPE /tinyalu_pkg/tinyalu_coverage/CovGp             100.00%        100          -    Covered              
+    covered/total bins:                                    30         30          -                      
+    missing/total bins:                                     0         30          -                      
+    % Hit:                                            100.00%        100          -                      
+    Coverpoint reset_c                                100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin disabled                                    38341          1          -    Covered              
+        bin abled                                        1972          1          -    Covered              
+    Coverpoint start_c                                100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin disabled                                      107          1          -    Covered              
+        bin abled                                        1865          1          -    Covered              
+    Coverpoint A_c                                    100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin Max                                           421          1          -    Covered              
+        bin Min                                           379          1          -    Covered              
+        default bin others                               1065                     -    Occurred             
+    Coverpoint B_c                                    100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin Max                                           349          1          -    Covered              
+        bin Min                                           395          1          -    Covered              
+        default bin others                               1121                     -    Occurred             
+    Coverpoint op_c                                   100.00%        100          -    Covered              
+        covered/total bins:                                 6          6          -                      
+        missing/total bins:                                 0          6          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin no_op                                         168          1          -    Covered              
+        bin add_op                                        689          1          -    Covered              
+        bin and_op                                        318          1          -    Covered              
+        bin xor_op                                        341          1          -    Covered              
+        bin mul_op                                        349          1          -    Covered              
+        bin unused_op                                     349          1          -    Covered              
+    Cross A_B_op_c                                    100.00%        100          -    Covered              
+        covered/total bins:                                16         16          -                      
+        missing/total bins:                                 0         16          -                      
+        % Hit:                                        100.00%        100          -                      
+        Auto, Default and User Defined Bins:
+            bin <Min,Min,mul_op>                           11          1          -    Covered              
+            bin <Max,Min,mul_op>                           13          1          -    Covered              
+            bin <Min,Max,mul_op>                           18          1          -    Covered              
+            bin <Max,Max,mul_op>                           17          1          -    Covered              
+            bin <Min,Min,xor_op>                           23          1          -    Covered              
+            bin <Max,Min,xor_op>                           11          1          -    Covered              
+            bin <Min,Max,xor_op>                            4          1          -    Covered              
+            bin <Max,Max,xor_op>                           18          1          -    Covered              
+            bin <Min,Min,and_op>                           11          1          -    Covered              
+            bin <Max,Min,and_op>                           15          1          -    Covered              
+            bin <Min,Max,and_op>                           10          1          -    Covered              
+            bin <Max,Max,and_op>                           12          1          -    Covered              
+            bin <Min,Min,add_op>                           30          1          -    Covered              
+            bin <Max,Min,add_op>                           25          1          -    Covered              
+            bin <Min,Max,add_op>                           23          1          -    Covered              
+            bin <Max,Max,add_op>                           34          1          -    Covered              
+        Illegal and Ignore Bins:
+            ignore_bin unused_operation                    59                     -    Occurred             
+            ignore_bin no_operation                        27                     -    Occurred             
+
+TOTAL COVERGROUP COVERAGE: 100.00%  COVERGROUP TYPES: 1
+
+DIRECTIVE COVERAGE:
+--------------------------------------------------------------------------------------------
+Name                                     Design Design   Lang File(Line)      Hits Status    
+                                         Unit   UnitType                                     
+--------------------------------------------------------------------------------------------
+/tinyalu_top/DUT/tinyalu_sva_inst/RST_C  tinyalu_sva Verilog  SVA  tinyalu_sva.sv(9)
+                                                                              1972 Covered   
+/tinyalu_top/DUT/tinyalu_sva_inst/OP000_DONE_C 
+                                         tinyalu_sva Verilog  SVA  tinyalu_sva.sv(12)
+                                                                              5549 Covered   
+/tinyalu_top/DUT/tinyalu_sva_inst/ADD_C  tinyalu_sva Verilog  SVA  tinyalu_sva.sv(15)
+                                                                              8633 Covered   
+/tinyalu_top/DUT/tinyalu_sva_inst/AND_C  tinyalu_sva Verilog  SVA  tinyalu_sva.sv(18)
+                                                                              3941 Covered   
+/tinyalu_top/DUT/tinyalu_sva_inst/XOR_C  tinyalu_sva Verilog  SVA  tinyalu_sva.sv(21)
+                                                                              3656 Covered   
+/tinyalu_top/DUT/tinyalu_sva_inst/SINGLE_END_C 
+                                         tinyalu_sva Verilog  SVA  tinyalu_sva.sv(24)
+                                                                              21845 Covered   
+/tinyalu_top/DUT/tinyalu_sva_inst/MULT_C tinyalu_sva Verilog  SVA  tinyalu_sva.sv(27)
+                                                                               137 Covered   
+
+TOTAL DIRECTIVE COVERAGE: 100.00%  COVERS: 7
+
+ASSERTION RESULTS:
+--------------------------------------------------------------------
+Name                 File(Line)                   Failure      Pass 
+                                                  Count        Count
+--------------------------------------------------------------------
+/tinyalu_top/DUT/tinyalu_sva_inst/RST_A
+                     tinyalu_sva.sv(8)                  0          1
+/tinyalu_top/DUT/tinyalu_sva_inst/OP000_DONE_A
+                     tinyalu_sva.sv(11)                 2          1
+/tinyalu_top/DUT/tinyalu_sva_inst/ADD_A
+                     tinyalu_sva.sv(14)                 0          1
+/tinyalu_top/DUT/tinyalu_sva_inst/AND_A
+                     tinyalu_sva.sv(17)                 0          1
+/tinyalu_top/DUT/tinyalu_sva_inst/XOR_A
+                     tinyalu_sva.sv(20)                 0          1
+/tinyalu_top/DUT/tinyalu_sva_inst/SINGLE_END_A
+                     tinyalu_sva.sv(23)                 0          1
+/tinyalu_top/DUT/tinyalu_sva_inst/MULT_A
+                     tinyalu_sva.sv(26)                 0          1
+/tinyalu_pkg/tinyalu_main_seq/body/#anonblk#138568935#19#4#/#ublk#138568935#19/immed__23
+                     tinyalu_main_seq.sv(23)            0          1
+/tinyalu_pkg/tinyalu_main_seq/body/#anonblk#138568935#19#4#/#ublk#138568935#19/#ublk#138568935#27/immed__34
+                     tinyalu_main_seq.sv(34)            0          1
+/tinyalu_pkg/tinyalu_main_seq/body/#anonblk#138568935#19#4#/#ublk#138568935#19/#ublk#138568935#44/immed__69
+                     tinyalu_main_seq.sv(69)            0          1
+/tinyalu_pkg/tinyalu_main_seq/body/#anonblk#138568935#19#4#/#ublk#138568935#19/#ublk#138568935#44/immed__61
+                     tinyalu_main_seq.sv(61)            0          1
+/tinyalu_pkg/tinyalu_main_seq/body/#anonblk#138568935#19#4#/#ublk#138568935#19/#ublk#138568935#44/immed__53
+                     tinyalu_main_seq.sv(53)            0          1
+/tinyalu_pkg/tinyalu_reset_seq/body/immed__16
+                     tinyalu_reset_seq.sv(16)           0          1
+
+Total Coverage By Instance (filtered view): 80.96%
+
