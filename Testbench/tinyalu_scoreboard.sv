@@ -56,6 +56,10 @@ class tinyalu_scoreboard extends uvm_scoreboard;
             cycle = 0;
             done_exp = 0;
         end
+        else if (seq_item_ref.op == 0) begin
+            done_exp = 0;
+            cycle = 0;
+        end
         else if(~seq_item_ref.op[2] && seq_item_ref.start)begin
             if (cycle == 1) begin
                 done_exp = 1;
@@ -63,7 +67,6 @@ class tinyalu_scoreboard extends uvm_scoreboard;
                     3'b001: result_exp = seq_item_ref.A + seq_item_ref.B;
                     3'b010: result_exp = seq_item_ref.A & seq_item_ref.B;
                     3'b011: result_exp = seq_item_ref.A ^ seq_item_ref.B;
-                    default: done_exp = 0;
                 endcase
                 cycle++;
             end

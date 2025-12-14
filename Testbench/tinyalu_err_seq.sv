@@ -15,7 +15,6 @@ class tinyalu_err_seq extends tinyalu_main_seq;
         for (int i = 0; i < 1000; i++) begin
             e_item = tinyalu_seq_item::type_id::create("e_item");
             start_item(e_item);
-            e_item.valid_op.constraint_mode(0);
             assert(e_item.randomize());
             // Debug: print the error type and opcode
             `uvm_info(get_type_name(), 
